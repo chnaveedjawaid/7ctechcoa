@@ -1,6 +1,6 @@
 <?php
 
-class activity {
+class chart {
 
     public $TableName = "chart";
 
@@ -16,76 +16,69 @@ class activity {
         }
         
         try{
-        	$query = $db->prepare($sql);
-        	$query->execute();
-			$result['resoult'] = 'Process completed successfuly';
-			$result['msgResult'] = true;
-			$result['data'] = $query->fetchAll(PDO::FETCH_ASSOC);
-		}catch(PDOException $e){
-			$result['resoult'] = 'Process failed';
-			$result['msgResult'] = false;
-			$result['err_msg'] = $e->getMessage();
-		}
-		
-		echo json_encode($result);
+        $query = $db->prepare($Sql);
+        $query->execute();
+                $result['msg'] = true;
+                $result['data'] = $query->fetchAll(PDO::FETCH_ASSOC);
+        }catch(PDOException $e){
+                $result['msg'] = false;
+                $result['data'] = $e->getMessage();
+        }
+
+        return $result;
     }
 
-    public function Add($ActivityType,$ActivityDescription)
+    public function Add($ChartName,$ChartDescription)
     {
         global $db;
 		
-        $Sql = 'INSERT INTO '.$this->TableName.' VALUES ('.$ActivityType.','.$ActivityDescription.')';
+        $Sql = 'INSTER INTO ' .$this->TableName. '(name, description)';
+        $Sql = $Sql . 'VALUES("' . $ChartName . '","' . $ChartDescription . '")';
         try{
-        	$query = $db->prepare($sql);
-        	$query->execute();
-			$result['resoult'] = 'Process completed successfuly';
-			$result['msgResult'] = true;
-			$result['data'] = $query->fetchAll(PDO::FETCH_ASSOC);
-		}catch(PDOException $e){
-			$result['resoult'] = 'Process failed';
-			$result['msgResult'] = false;
-			$result['err_msg'] = $e->getMessage();
-		}
+        $query = $db->prepare($Sql);
+        $query->execute();
+                $result['msg'] = true;
+                $result['data'] = $query->fetchAll(PDO::FETCH_ASSOC);
+        }catch(PDOException $e){
+                $result['msg'] = false;
+                $result['data'] = $e->getMessage();
+        }
 		
-		echo json_encode($result);
+	return $result;
         
     }
 	
-	public function Update($ActivityType,$ActivityDescription,$ActivityId){
-		global $db;
-		$Sql = 'UPDATE '.$this->TableName.' SET name = '.$ActivityType.', description='.$ActivityDescription.' WHERE id ='.$ActivityId;
-		try{
-        	$query = $db->prepare($sql);
-        	$query->execute();
-			$result['resoult'] = 'Process completed successfuly';
-			$result['msgResult'] = true;
-			$result['data'] = $query->fetchAll(PDO::FETCH_ASSOC);
-		}catch(PDOException $e){
-			$result['resoult'] = 'Process failed';
-			$result['msgResult'] = false;
-			$result['err_msg'] = $e->getMessage();
-		}
-		
-		echo json_encode($result);
+	public function Update($ChartName,$ChartDescription,$ChartId){
+            global $db;
+            $Sql = 'UPDATE '.$this->TableName.' SET name = '.$ChartName.', description='.$ChartDescription.' WHERE id ='.$ChartId;
+            try{
+            $query = $db->prepare($Sql);
+            $query->execute();
+                    $result['msg'] = true;
+                    $result['data'] = $query->fetchAll(PDO::FETCH_ASSOC);
+            }catch(PDOException $e){
+                    $result['msg'] = false;
+                    $result['data'] = $e->getMessage();
+            }
+
+            return $result;
 	}
 	
-	public function Delete_record($ActivityId){
-		global $db;
+	public function Delete_record($ChartId){
+            global $db;
 		
-		$Sql = "DELETE FROM " . $this->TableName . " WHERE id =" . $ActivityId;
-		try{
-		$query = $db->prepare($sql);
-		$query->execute();
-				$result['msgResult'] = true;
-				$result['data'] = $query->fetchAll(PDO::FETCH_ASSOC);
-		}catch(PDOException $e){
-				$result['msgResult'] = false;
-				$result['data'] = $e->getMessage();
-		}
+            $Sql = "DELETE FROM " . $this->TableName . " WHERE id =" . $ChartId;
+            try{
+            $query = $db->prepare($Sql);
+            $query->execute();
+                $result['msg'] = true;
+                $result['data'] = $query->fetchAll(PDO::FETCH_ASSOC);
+            }catch(PDOException $e){
+                $result['msg'] = false;
+                $result['data'] = $e->getMessage();
+            }
 
-		return $result;
-		
-		echo json_encode($result);
+            return $result;
 	}
 
 
