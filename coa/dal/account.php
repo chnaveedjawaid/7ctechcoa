@@ -10,10 +10,10 @@ class account {
 
     }
 
-    public function Select_Drcr($accountid = 0)
+    public function Select_Drcr($accountid)
     {
         global $db;
-        if($accountid==0)
+        if($accountid=="")
         {
             $sql = "SELECT * FROM ".$this->DrcrTableName;
         } else
@@ -21,9 +21,9 @@ class account {
            $sql = "SELECT * FROM ". $this->DrcrTableName."  where account_id= ".$accountid;
         }
         try{
-        $query = $db->prepare($sql);
-        $query->execute();
-        return $query->fetchAll(PDO::FETCH_ASSOC);
+            $query = $db->prepare($sql);
+            $query->execute();
+            return $query->fetchAll(PDO::FETCH_ASSOC);
         } catch(PDOException $e){
             return $e->getMessage();            
         }        
@@ -34,8 +34,8 @@ class account {
         global $db;
         $Sql = 'INSERT INTO '.$this->DrcrTableName.' VALUES ('.$acountid.','.$dr.','.$cr.')';
         try{
-        $query = $db->prepare($Sql);
-        $query->execute();
+            $query = $db->prepare($Sql);
+            $query->execute();
         return $query->fetchAll(PDO::FETCH_ASSOC);
         } catch(PDOException $e){
             return $e->getMessage();
@@ -52,9 +52,9 @@ class account {
             echo $Sql = "SELECT * FROM ".$this->TableName." ". $Condtion;
         }
         try{
-        $query = $db->prepare($Sql);
-        $query->execute();
-        return $query->fetchAll(PDO::FETCH_ASSOC);
+            $query = $db->prepare($Sql);
+            $query->execute();
+            return $query->fetchAll(PDO::FETCH_ASSOC);
         } catch(PDOException $e){
             return $e->getMessage();
         }
@@ -71,9 +71,9 @@ class account {
             $Sql = "SELECT account.id ,account.name as 'ac_name' , account.description,account.parent_id, chart.name as 'type_name' FROM  `account` ,  `chart` WHERE (account.type_id = chart.id AND ".$Condtion.")";
         }
         try{
-        $query = $db->prepare($Sql);
-        $query->execute();
-        return $query->fetchAll(PDO::FETCH_ASSOC);
+            $query = $db->prepare($Sql);
+            $query->execute();
+            return $query->fetchAll(PDO::FETCH_ASSOC);
         } catch(PDOException $e){
             return $e->getMessage();
         }

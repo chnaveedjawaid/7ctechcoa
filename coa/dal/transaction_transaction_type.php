@@ -1,16 +1,6 @@
-<?php
+<?php require 'config/db.php';
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
-/**
- * Description of transaction_transaction_type
- *
- * @author Faizan
- */
 class transaction_transaction_type {
      public $TableName = "transaction_type";
     
@@ -38,7 +28,7 @@ class transaction_transaction_type {
         global $db;
         try
         {
-            $Sql = 'INSTER INTO '.$this->TableName.'(name, description)';
+            $Sql = 'INSERT INTO '.$this->TableName.'(name, description)';
             $Sql .= 'VALUES("'.$TransactionName.'","'.$TransactionDescription.'")';
             $query = $db->prepare($Sql);
             $query->execute();
