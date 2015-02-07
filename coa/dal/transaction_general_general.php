@@ -27,7 +27,7 @@ class transaction_general_general {
         global $db;
         try
         {
-            $Sql = 'INSTER INTO '.$this->TableName.'(account_id, debit, credit)';
+            $Sql = 'INSERT INTO '.$this->TableName.'(account_id, debit, credit)';
             $Sql .= 'VALUES("'.$TransactionSubAccountId.'","'.$TransactionDebit.'","'.$TransactionCredit.'")';
             $query = $db->prepare($Sql);
             $query->execute();
