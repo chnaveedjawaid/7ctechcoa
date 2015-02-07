@@ -18,11 +18,11 @@ class activity {
         try{
         $query = $db->prepare($sql);
         $query->execute();
-                $result['msgResult'] = true;
+                $result['msg'] = true;
                 $result['data'] = $query->fetchAll(PDO::FETCH_ASSOC);
         }catch(PDOException $e){
-                $result['msgResult'] = false;
-                $result['err_msg'] = $e->getMessage();
+                $result['msg'] = false;
+                $result['data'] = $e->getMessage();
         }
 
         return $result;
@@ -36,11 +36,11 @@ class activity {
         try{
         $query = $db->prepare($sql);
         $query->execute();
-                $result['msgResult'] = true;
+                $result['msg'] = true;
                 $result['data'] = $query->fetchAll(PDO::FETCH_ASSOC);
         }catch(PDOException $e){
-                $result['msgResult'] = false;
-                $result['err_msg'] = $e->getMessage();
+                $result['msg'] = false;
+                $result['data'] = $e->getMessage();
         }
 		
 	return $result;
@@ -53,11 +53,11 @@ class activity {
             try{
             $query = $db->prepare($sql);
             $query->execute();
-                    $result['msgResult'] = true;
+                    $result['msg'] = true;
                     $result['data'] = $query->fetchAll(PDO::FETCH_ASSOC);
             }catch(PDOException $e){
-                    $result['msgResult'] = false;
-                    $result['err_msg'] = $e->getMessage();
+                    $result['msg'] = false;
+                    $result['data'] = $e->getMessage();
             }
 
             return $result;
@@ -65,16 +65,16 @@ class activity {
 	
 	public function Delete_record($ActivityId){
             global $db;
-
-            $Sql = "DELETE FROM " + $this->TableName + " WHERE id =" + $ActivityId;
+		
+            $Sql = "DELETE FROM " . $this->TableName . " WHERE id =" . $ActivityId;
             try{
             $query = $db->prepare($sql);
             $query->execute();
-                    $result['msgResult'] = true;
-                    $result['data'] = $query->fetchAll(PDO::FETCH_ASSOC);
+                $result['msg'] = true;
+                $result['data'] = $query->fetchAll(PDO::FETCH_ASSOC);
             }catch(PDOException $e){
-                    $result['msgResult'] = false;
-                    $result['err_msg'] = $e->getMessage();
+                $result['msg'] = false;
+                $result['data'] = $e->getMessage();
             }
 
             return $result;
