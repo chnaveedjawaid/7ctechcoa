@@ -16,7 +16,7 @@ class activity {
         }
         
         try{
-        $query = $db->prepare($sql);
+        $query = $db->prepare($Sql);
         $query->execute();
                 $result['msg'] = true;
                 $result['data'] = $query->fetchAll(PDO::FETCH_ASSOC);
@@ -34,7 +34,7 @@ class activity {
 		
         $Sql = 'INSERT INTO '.$this->TableName.' VALUES ('.$ActivityType.','.$ActivityDescription.')';
         try{
-        $query = $db->prepare($sql);
+        $query = $db->prepare($Sql);
         $query->execute();
                 $result['msg'] = true;
                 $result['data'] = $query->fetchAll(PDO::FETCH_ASSOC);
@@ -51,7 +51,7 @@ class activity {
             global $db;
             $Sql = 'UPDATE '.$this->TableName.' SET name = '.$ActivityType.', description='.$ActivityDescription.' WHERE id ='.$ActivityId;
             try{
-            $query = $db->prepare($sql);
+            $query = $db->prepare($Sql);
             $query->execute();
                     $result['msg'] = true;
                     $result['data'] = $query->fetchAll(PDO::FETCH_ASSOC);
@@ -68,7 +68,7 @@ class activity {
 		
             $Sql = "DELETE FROM " . $this->TableName . " WHERE id =" . $ActivityId;
             try{
-            $query = $db->prepare($sql);
+            $query = $db->prepare($Sql);
             $query->execute();
                 $result['msg'] = true;
                 $result['data'] = $query->fetchAll(PDO::FETCH_ASSOC);
