@@ -1,4 +1,4 @@
-<?php
+<?php require 'config/db.php';
 
 class traceability {
 
@@ -18,11 +18,11 @@ class traceability {
         try{
         $query = $db->prepare($Sql);
         $query->execute();
-                $result['msg'] = true;
-                $result['data'] = $query->fetchAll(PDO::FETCH_ASSOC);
+                $result['err'] = false;
+                $result['rows'] = $query->fetchAll(PDO::FETCH_ASSOC);
         }catch(PDOException $e){
-                $result['msg'] = false;
-                $result['data'] = $e->getMessage();
+                $result['err'] = true;
+                $result['msg'] = $e->getMessage();
         }
 
         return $result;
@@ -38,15 +38,13 @@ class traceability {
             try{
             $query = $db->prepare($Sql);
             $query->execute();
-                    $result['msg'] = true;
-                    $result['data'] = $query->fetchAll(PDO::FETCH_ASSOC);
+                    $result = true;
+                    
             }catch(PDOException $e){
-                    $result['msg'] = false;
-                    $result['data'] = $e->getMessage();
+                    $result = $e->getMessage();
             }
         }else{
-            $result['msg'] = false;
-            $result['data'] = 'Invalid parameters';
+            $result = 'Invalid parameters';
         }
 		
 		return $result;
@@ -61,15 +59,14 @@ class traceability {
                 try{
                 $query = $db->prepare($Sql);
                 $query->execute();
-                        $result['msg'] = true;
-                        $result['data'] = $query->fetchAll(PDO::FETCH_ASSOC);
+                    $result = true;
+                        
                 }catch(PDOException $e){
-                        $result['msg'] = false;
-                        $result['data'] = $e->getMessage();
+                    
+                        $result = $e->getMessage();
                 }
             }else{
-                $result['msg'] = false;
-                $result['data'] = 'Invalid parameters';
+                $result = 'Invalid parameters';
             }
 
             return $result;
@@ -83,15 +80,15 @@ class traceability {
                 try{
                 $query = $db->prepare($Sql);
                 $query->execute();
-                    $result['msg'] = true;
-                    $result['data'] = $query->fetchAll(PDO::FETCH_ASSOC);
+                    $result = true;
+                    
                 }catch(PDOException $e){
-                    $result['msg'] = false;
-                    $result['data'] = $e->getMessage();
+                    
+                    $result = $e->getMessage();
                 }
             }else{
-                 $result['msg'] = false;
-                 $result['data'] = 'Invalid parameters';
+                 
+                 $result = 'Invalid parameters';
             }
 
             return $result;

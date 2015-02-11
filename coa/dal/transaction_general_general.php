@@ -14,12 +14,13 @@ class transaction_general_general {
         {
             $query = $db->prepare($Sql);
             $query->execute();
-            return $query->fetchAll(PDO::FETCH_ASSOC);
-            
-        } catch(PDOException $e)
-        {
-            return $e->getMessage();
+            $arr['rows'] = $query->fetchAll(PDO::FETCH_ASSOC);
+            $arr['err'] = false;
+        } catch(PDOException $e){
+            $arr['err'] = true;
+            $arr['msg'] = $e->getMessage();
         }
+        return $arr;
     }
     
     public function Add($TransactionSubAccountId, $TransactionDebit, $TransactionCredit){

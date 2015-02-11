@@ -1,6 +1,6 @@
-<?php require("dal/init.php");
-$AccObj = new Account();
-$res = $AccObj->Select("WHERE type_id = 1");
-print_r($res);
+<?php require("init.php");
+$AccObj = new accounts_logic();
+$AccObj->CreateAccount("7ctech Account", "7ctech Account Management", $Account_Parent_id, $AccountTypeId, $_Verbrose)
+//print_r($res);
 
 ?>

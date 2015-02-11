@@ -14,12 +14,15 @@ class post_transaction {
         {
             $query = $db->prepare($Sql);
             $query->execute();
-            return $query->fetchAll(PDO::FETCH_ASSOC);
+            $result['err'] = false;
+            $result['rows'] =  $query->fetchAll(PDO::FETCH_ASSOC);
             
         } catch(PDOException $e)
         {
-            return $e->getMessage();
+            $result['err'] = true;
+            $result['msg'] = $e->getMessage();
         }
+        return $result;
     }
     
     public function Add($TraceabilityEntityType, $TraceabilityEntityName, $TraceabilityDate, $TraceabilityTime, $TraceabilityActivityType){

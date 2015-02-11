@@ -15,11 +15,13 @@ class transaction_transaction_type {
         {
             $query = $db->prepare($Sql);
             $query->execute();
-            return $query->fetchAll(PDO::FETCH_ASSOC);
+            $result['err'] = false;
+            $result['rows'] = $query->fetchAll(PDO::FETCH_ASSOC);            
             
         } catch(PDOException $e)
         {
-            return $e->getMessage();
+            $result['err'] = true;
+            $result['msg'] = $e->getMessage();
         }
     }
     

@@ -1,4 +1,4 @@
-<?php
+<?php require 'config/db.php';
 
 class activity {
 
@@ -16,13 +16,13 @@ class activity {
         }
         
         try{
-        $query = $db->prepare($Sql);
-        $query->execute();
-                $result['msg'] = true;
-                $result['data'] = $query->fetchAll(PDO::FETCH_ASSOC);
+            $query = $db->prepare($Sql);
+            $query->execute();
+            $result['err'] = false;
+            $result['rows'] = $query->fetchAll(PDO::FETCH_ASSOC);
         }catch(PDOException $e){
-                $result['msg'] = false;
-                $result['data'] = $e->getMessage();
+            $result['err'] = true;
+            $result['msg'] = $e->getMessage();
         }
 
         return $result;
@@ -38,17 +38,15 @@ class activity {
             try{
             $query = $db->prepare($Sql);
             $query->execute();
-                    $result['msg'] = true;
-                    $result['data'] = $query->fetchAll(PDO::FETCH_ASSOC);
+            return true;                    
             }catch(PDOException $e){
-                    $result['msg'] = false;
-                    $result['data'] = $e->getMessage();
+              return $e->getMessage();
             }
         }else{
-             $result['msg'] = false;
-             $result['data'] = 'Invalid parameters';
+             
+             return $str = 'Invalid parameters';
         }
-        return $result;
+       
     }
 	
 	public function Update($ActivityType,$ActivityDescription,$ActivityId){
@@ -59,15 +57,15 @@ class activity {
                 try{
                 $query = $db->prepare($Sql);
                 $query->execute();
-                        $result['msg'] = true;
-                        $result['data'] = $query->fetchAll(PDO::FETCH_ASSOC);
+                        $result = true;
+                        
                 }catch(PDOException $e){
-                        $result['msg'] = false;
-                        $result['data'] = $e->getMessage();
+                        
+                        $result = $e->getMessage();
                 }
             }else{
-                 $result['msg'] = false;
-                $result['data'] = 'Invalid parameters';
+                 
+                $result = 'Invalid parameters';
             }
 
             return $result;
@@ -81,17 +79,13 @@ class activity {
                 try{
                 $query = $db->prepare($Sql);
                 $query->execute();
-                    $result['msg'] = true;
-                    $result['data'] = $query->fetchAll(PDO::FETCH_ASSOC);
-                }catch(PDOException $e){
-                    $result['msg'] = false;
-                    $result['data'] = $e->getMessage();
+                $result = true;                    
+                }catch(PDOException $e){                
+                    $result = $e->getMessage();
                 }
-            }else{
-                $result['msg'] = false;
-                $result['data'] = 'Invalid parameters';
+            }else{                
+                $result = 'Invalid parameters';
             }
-
             return $result;
 	}
 

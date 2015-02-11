@@ -23,10 +23,13 @@ class account {
         try{
             $query = $db->prepare($sql);
             $query->execute();
-            return $query->fetchAll(PDO::FETCH_ASSOC);
+            $arr['rows'] = $query->fetchAll(PDO::FETCH_ASSOC);
+            $arr['err'] = false;
         } catch(PDOException $e){
-            return $e->getMessage();            
-        }        
+            $arr['err'] = true;
+            $arr['msg'] = $e->getMessage();            
+        } 
+        return $arr;
     }
 
     public function Insert_Drcr($acountid,$dr,$cr)
@@ -36,7 +39,7 @@ class account {
         try{
             $query = $db->prepare($Sql);
             $query->execute();
-        return $query->fetchAll(PDO::FETCH_ASSOC);
+            return true;
         } catch(PDOException $e){
             return $e->getMessage();
         }
@@ -45,6 +48,7 @@ class account {
     public function Select($Condtion)
     {
         global $db;
+        $arr = array();
         if ($Condtion == "") {
             echo $Sql = "SELECT * FROM ".$this->TableName;
         }
@@ -54,10 +58,13 @@ class account {
         try{
             $query = $db->prepare($Sql);
             $query->execute();
-            return $query->fetchAll(PDO::FETCH_ASSOC);
+            $arr['rows'] = $query->fetchAll(PDO::FETCH_ASSOC);
+            $arr['err'] = false;
         } catch(PDOException $e){
-            return $e->getMessage();
+            $arr['err'] = true;
+            $arr['msg'] = $e->getMessage();
         }
+        return $arr;
     }
 
     public function SelectFormated($Condtion)
@@ -73,11 +80,13 @@ class account {
         try{
             $query = $db->prepare($Sql);
             $query->execute();
-            return $query->fetchAll(PDO::FETCH_ASSOC);
+            $arr['rows'] = $query->fetchAll(PDO::FETCH_ASSOC);
+            $arr['err'] = false;
         } catch(PDOException $e){
-            return $e->getMessage();
+            $arr['err'] = true;
+            $arr['msg'] = $e->getMessage();
         }
-
+        return $arr;
     }
 
     public function Add($AccountName, $AccountDescription, $parent_id, $AccountTypeId)
