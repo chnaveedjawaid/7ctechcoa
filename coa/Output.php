@@ -27,13 +27,13 @@ class Output {
     }
     
     public function ReturnOutputV($result){
-        if($result['err'] == true){
+        if($result['err'] == false){
             $arr['resoult'] = $result['rows'];
             $arr['msg'] = true;
         } else {
             $arr['resoult'] = 'Process failed';
             $arr['msg'] = false;
-            $arr['err_msg'] = $result;
+            $arr['err_msg'] = $result['msg'];
         }
         return json_encode($arr);
     }

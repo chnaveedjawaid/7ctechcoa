@@ -1,6 +1,8 @@
 <?php require("init.php");
 $AccObj = new accounts_logic();
-$AccObj->CreateAccount("7ctech Account", "7ctech Account Management", $Account_Parent_id, $AccountTypeId, $_Verbrose)
-//print_r($res);
-
+$res = $AccObj->LoadAcount("");
+//echo $res;
+echo "<pre>";
+print_r(json_decode($res));
+echo "</pre>";
 ?>

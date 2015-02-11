@@ -50,10 +50,10 @@ class account {
         global $db;
         $arr = array();
         if ($Condtion == "") {
-            echo $Sql = "SELECT * FROM ".$this->TableName;
+             $Sql = "SELECT * FROM ".$this->TableName;
         }
         else {
-            echo $Sql = "SELECT * FROM ".$this->TableName." ". $Condtion;
+             $Sql = "SELECT * FROM ".$this->TableName." ". $Condtion;
         }
         try{
             $query = $db->prepare($Sql);
