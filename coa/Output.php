@@ -14,7 +14,7 @@
 class Output {
     public function ReturnOutputCUD($result,$Verbarose){
         if($Verbarose===true){
-            if($result == true){
+            if($result === true){
                 $arr['resoult'] = 'Process completed successfuly';
                 $arr['msg'] = true;
             } else {

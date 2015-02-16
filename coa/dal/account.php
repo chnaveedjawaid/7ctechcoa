@@ -1,7 +1,7 @@
 <?php require 'config/db.php';
 
 class account {
-
+    
     public  $TableName = "account";
     public  $DrcrTableName = "account_dr_cr";
 
@@ -9,7 +9,9 @@ class account {
     {
 
     }
-
+    
+    // GET DEBIT CREDIT OF SPECIFIC ACCOUNT OR ALL ACOUNT
+    // @Parameter $accountid 
     public function Select_Drcr($accountid)
     {
         global $db;
@@ -31,7 +33,11 @@ class account {
         } 
         return $arr;
     }
-
+    
+    // INSERT DEBIT CREDIT IN AN ACCOUNT
+    // @Parameter $accountid Account Id
+    // @Parameter $dr DEBIT
+    // @Parameter $cr CREDIT
     public function Insert_Drcr($acountid,$dr,$cr)
     {
         global $db;
@@ -44,7 +50,9 @@ class account {
             return $e->getMessage();
         }
     }
-
+    
+    // SELECT ACCOUNT
+    // @Parameter $Condtion (Optional) for Selecting Specific account    
     public function Select($Condtion)
     {
         global $db;
@@ -67,6 +75,9 @@ class account {
         return $arr;
     }
 
+    //
+    // SELECT FORMATTED ACCOUNT With All Types
+    // @Parameter $Condtion (Optional) for Selecting Specific accountq
     public function SelectFormated($Condtion)
     {
         global $db;
@@ -89,6 +100,12 @@ class account {
         return $arr;
     }
 
+    //
+    // ADD ACCOUNT
+    // @Parameter $AccountName  
+    // @Parameter $AccountDescription  
+    // @Parameter $parent_id  
+    // @Parameter $AccountTypeId  
     public function Add($AccountName, $AccountDescription, $parent_id, $AccountTypeId)
     {
         global $db;
@@ -103,6 +120,12 @@ class account {
         }        
     }
     
+    // UPDATE ACCOUNT
+    // @Parameter $AccountName  
+    // @Parameter $AccountDescription  
+    // @Parameter $parent_id  
+    // @Parameter $AccountTypeId  
+    // @Parameter $AccountId  
     public function Update($AccountName, $AccountDescription, $AccountTypeId, $parent_id, $AccountId)
     {
         global $db;
@@ -153,6 +176,8 @@ class account {
         
     }
     
+    //DELETE SPECIFIC RECORD
+    //@Parameter AccountId For Specific Account
     public function Delete_record($AccountId)
     {
         global $db;

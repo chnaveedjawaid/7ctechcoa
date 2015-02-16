@@ -33,15 +33,14 @@ class traceability {
         global $db;
 		
         if($TraceabilityEntityType != "" && $TraceabilityEntityName != "" && $TraceabilityDate != "" && $TraceabilityTime != "" && $TraceabilityActivityType != ""){
-            $Sql = 'INSTER INTO ' .$this->TableName. '(entity_type,entity_name, date, time, activity_type)';
+            $Sql = 'INSERT INTO ' .$this->TableName. '(entity_type,entity_name, date, time, activity_type)';
             $Sql = $Sql . 'VALUES("' . $TraceabilityEntityType . '","' . $TraceabilityEntityName . '","' . $TraceabilityDate . '","' . $TraceabilityTime . '","' . $TraceabilityActivityType . '")';
             try{
-            $query = $db->prepare($Sql);
-            $query->execute();
-                    $result = true;
-                    
+                $query = $db->prepare($Sql);
+                $query->execute();
+                $result = true;
             }catch(PDOException $e){
-                    $result = $e->getMessage();
+                $result = $e->getMessage();
             }
         }else{
             $result = 'Invalid parameters';

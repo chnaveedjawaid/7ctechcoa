@@ -18,8 +18,13 @@ class activity {
         try{
             $query = $db->prepare($Sql);
             $query->execute();
-            $result['err'] = false;
-            $result['rows'] = $query->fetchAll(PDO::FETCH_ASSOC);
+            if($query->rowCount()>0){
+                $result['err'] = false;
+                $result['rows'] = $query->fetchAll(PDO::FETCH_ASSOC);
+            } else {
+                $result['err'] = true;
+                $result['msg'] = "No Records Available";
+            }
         }catch(PDOException $e){
             $result['err'] = true;
             $result['msg'] = $e->getMessage();
