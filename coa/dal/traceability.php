@@ -33,7 +33,7 @@ class traceability {
         global $db;
 		
         if($TraceabilityEntityType != "" && $TraceabilityEntityName != "" && $TraceabilityDate != "" && $TraceabilityTime != "" && $TraceabilityActivityType != ""){
-            $Sql = 'INSERT INTO ' .$this->TableName. '(entity_type,entity_name, date, time, activity_type)';
+            $Sql = 'INSERT INTO ' .$this->TableName. '(Entity_type,Entity_name, Date, Time, Activity_type)';
             $Sql = $Sql . 'VALUES("' . $TraceabilityEntityType . '","' . $TraceabilityEntityName . '","' . $TraceabilityDate . '","' . $TraceabilityTime . '","' . $TraceabilityActivityType . '")';
             try{
                 $query = $db->prepare($Sql);
@@ -54,7 +54,7 @@ class traceability {
             global $db;
             
             if($TraceabilityEntityType != "" && $TraceabilityEntityName != "" && $TraceabilityDate != "" && $TraceabilityTime != "" && $TraceabilityActivityType != ""&& $TraceabilityId != ""){
-                $Sql = 'UPDATE '.$this->TableName.' SET entity_type = '.$TraceabilityEntityType.', entity_name='.$TraceabilityEntityName.', date='.$TraceabilityDate.', time='.$TraceabilityTime.', activity_type='.$TraceabilityActivityType.' WHERE id ='.$TraceabilityId;
+                $Sql = 'UPDATE '.$this->TableName.' SET Entity_type = '.$TraceabilityEntityType.', Entity_name='.$TraceabilityEntityName.', Date='.$TraceabilityDate.', Time='.$TraceabilityTime.', Activity_type='.$TraceabilityActivityType.' WHERE Id='.$TraceabilityId;
                 try{
                 $query = $db->prepare($Sql);
                 $query->execute();
@@ -75,7 +75,7 @@ class traceability {
             global $db;
 		
             if($ChartId != ""){
-                $Sql = "DELETE FROM " . $this->TableName . " WHERE id =" . $TraceabilityId;
+                $Sql = "DELETE FROM " . $this->TableName . " WHERE Id =" . $TraceabilityId;
                 try{
                 $query = $db->prepare($Sql);
                 $query->execute();

@@ -20,7 +20,7 @@ class account {
             $sql = "SELECT * FROM ".$this->DrcrTableName;
         } else
         {
-           $sql = "SELECT * FROM ". $this->DrcrTableName."  where account_id= ".$accountid;
+           $sql = "SELECT * FROM ". $this->DrcrTableName." where Account_id= ".$accountid;
         }
         try{
             $query = $db->prepare($sql);
@@ -83,10 +83,10 @@ class account {
         global $db;
         if($Condtion == "")
         {
-            $Sql = "SELECT account.id , account.name as 'ac_name' , account.description,account.parent_id, chart.name as 'type_name' FROM  `account` ,  `chart` WHERE (account.type_id = chart.id)";
+            $Sql = "SELECT account.Id , account.Name as 'ac_name' , account.Description, account.Parent_id, chart.Name as 'type_name' FROM `account` ,  `chart` WHERE (account.Type_id = chart.id)";
         }
         else {
-            $Sql = "SELECT account.id ,account.name as 'ac_name' , account.description,account.parent_id, chart.name as 'type_name' FROM  `account` ,  `chart` WHERE (account.type_id = chart.id AND ".$Condtion.")";
+            $Sql = "SELECT account.Id ,account.Name as 'ac_name' , account.Description,account.Parent_id, chart.Name as 'type_name' FROM `account` ,  `chart` WHERE (account.Type_id = chart.Id AND ".$Condtion.")";
         }
         try{
             $query = $db->prepare($Sql);
@@ -109,7 +109,7 @@ class account {
     public function Add($AccountName, $AccountDescription, $parent_id, $AccountTypeId)
     {
         global $db;
-        $sql = "INSERT INTO ".$this->TableName." (name, description, type_id,parent_id)";
+        $sql = "INSERT INTO ".$this->TableName." (Name, Description, Type_id,Parent_id)";
         $sql .= 'VALUES("'.$AccountName.'","'.$AccountDescription.'",'.$AccountTypeId.','.$parent_id.')'; 
         try{
             $query = $db->prepare($sql);
@@ -139,34 +139,34 @@ class account {
         $Sql = "UPDATE ".$this->TableName." SET ";
         
         if ($AccountName != "") {
-            $Sql .= " name = '".$AccountName."'";
+            $Sql .= " Name = '".$AccountName."'";
         }
         if ($AccountDescription != "") {
             if ($AccountName == "") {
-                $Sql .= "description = '".$AccountDescription."'";
+                $Sql .= "Description = '".$AccountDescription."'";
             }
             else {
-                $Sql .=" , description = '".$AccountDescription."'";
+                $Sql .=" , Description = '".$AccountDescription."'";
             }
         }
         if ($AccountTypeId != "") {
             if ($AccountName == "" && $AccountDescription == "") {
-                $Sql .="  type_id = ".$AccountTypeId."";
+                $Sql .="  Type_id = ".$AccountTypeId."";
             }
             else {
-                $Sql .= " , type_id = ".$AccountTypeId."";
+                $Sql .= " , Type_id = ".$AccountTypeId."";
             }
         }
         if ($parent_id != "") {
             if ($AccountName == "" && $AccountDescription == "" && $AccountTypeId == "") {
-                $Sql .= "  parent_id = ".$parent_id."";
+                $Sql .= "  Parent_id = ".$parent_id."";
             }
             else {
-                $Sql .=" , parent_id = ".$parent_id."";
+                $Sql .=" , Parent_id = ".$parent_id."";
             }
         }
         try{
-            $Sql .= " WHERE id=".$AccountId; 
+            $Sql .= " WHERE Id=".$AccountId; 
             $query = $db->prepare($Sql);
             $query->execute();
             return true;
@@ -181,7 +181,7 @@ class account {
     public function Delete_record($AccountId)
     {
         global $db;
-        $Sql = "DELETE FROM ".$this->TableName + " WHERE id =".$AccountId;
+        $Sql = "DELETE FROM ".$this->TableName + " WHERE Id =".$AccountId;
         try
         {
             $query = $db->prepare($Sql);

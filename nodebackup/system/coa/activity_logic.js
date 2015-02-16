@@ -14,7 +14,7 @@ module.exports = {
         time = _time;
         Responce = res;
         var Activity = require('system/coa/dal/activity.js');
-        Activity.Select(Activity_CallBack, "where type='" + activity_type + "'");
+        var abc = Activity.Select("where type='" + activity_type + "'");
 
 
 

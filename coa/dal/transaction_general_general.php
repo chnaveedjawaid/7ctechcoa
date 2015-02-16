@@ -28,7 +28,7 @@ class transaction_general_general {
         global $db;
         try
         {
-            $Sql = 'INSERT INTO '.$this->TableName.'(account_id, debit, credit)';
+            $Sql = 'INSERT INTO '.$this->TableName.'(Account_id, Debit, Credit)';
             $Sql .= 'VALUES("'.$TransactionSubAccountId.'","'.$TransactionDebit.'","'.$TransactionCredit.'")';
             $query = $db->prepare($Sql);
             $query->execute();
@@ -49,23 +49,23 @@ class transaction_general_general {
         try{
             $Sql = "UPDATE ".$this->TableName." SET ";
             if ($TransactionSubAccountId != "") {
-                $Sql .= "sub_account_id = '".$TransactionSubAccountId."'";
+                $Sql .= "Account_id = '".$TransactionSubAccountId."'";
             }
             if ($TransactionDebit != "") {
                 if($TransactionSubAccountId == "")
                 {
-                    $Sql .="debit = '".$TransactionDebit."'";
-                } else $Sql .=", debit = '".$TransactionDebit."'";
+                    $Sql .="Debit = '".$TransactionDebit."'";
+                } else $Sql .=", Debit = '".$TransactionDebit."'";
 
             }
             if ($TransactionCredit != "") {
                 if($TransactionSubAccountId=="" && $TransactionDebit=="")
                 {
-                    $Sql .= "credit = '".$TransactionCredit."'";
-                } else $Sql .= ", credit = '".$TransactionCredit."'";
+                    $Sql .= "Credit = '".$TransactionCredit."'";
+                } else $Sql .= ", Credit = '".$TransactionCredit."'";
 
             }
-            $Sql .= "WHERE transaction_id=".$TransactionId;        
+            $Sql .= "WHERE Transaction_id=".$TransactionId;        
             $query = $db->prepare($Sql);
             $query->execute();
             return true;
@@ -78,7 +78,7 @@ class transaction_general_general {
     {
         global $db;
         try {
-             $Sql = "DELETE FROM ".$this->TableName." WHERE transaction_id =".$TransactionId;
+             $Sql = "DELETE FROM ".$this->TableName." WHERE Transaction_id =".$TransactionId;
              $query = $db->prepare($Sql);
              $query->execute();
              return true;

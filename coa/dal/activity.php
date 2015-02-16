@@ -58,7 +58,7 @@ class activity {
             global $db;
             
             if($ActivityType != "" && $ActivityDescription != "" && $ActivityId != ""){
-                $Sql = 'UPDATE '.$this->TableName.' SET name = '.$ActivityType.', description='.$ActivityDescription.' WHERE id ='.$ActivityId;
+                $Sql = 'UPDATE '.$this->TableName.' SET Type = '.$ActivityType.', Description='.$ActivityDescription.' WHERE Id ='.$ActivityId;
                 try{
                 $query = $db->prepare($Sql);
                 $query->execute();
@@ -80,7 +80,7 @@ class activity {
             global $db;
 		
             if($ActivityId != ""){
-                $Sql = "DELETE FROM " . $this->TableName . " WHERE id =" . $ActivityId;
+                $Sql = "DELETE FROM " . $this->TableName . " WHERE Id =" . $ActivityId;
                 try{
                 $query = $db->prepare($Sql);
                 $query->execute();

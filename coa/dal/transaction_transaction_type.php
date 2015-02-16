@@ -30,7 +30,7 @@ class transaction_transaction_type {
         global $db;
         try
         {
-            $Sql = 'INSERT INTO '.$this->TableName.'(name, description)';
+            $Sql = 'INSERT INTO '.$this->TableName.'(Name, Description)';
             $Sql .= 'VALUES("'.$TransactionName.'","'.$TransactionDescription.'")';
             $query = $db->prepare($Sql);
             $query->execute();
@@ -51,17 +51,17 @@ class transaction_transaction_type {
         try{
             $Sql = "UPDATE ".$this->TableName." SET ";
             if ($TransactionName != "") {
-                $Sql .= "name = '".$TransactionName."'";
+                $Sql .= "Name = '".$TransactionName."'";
             }
             if ($TransactionDescription != "") {
                 if($TransactionName == "")
                 {
-                    $Sql .="description = '".$TransactionDescription."'";
-                } else $Sql .=", description = '".$TransactionDescription."'";
+                    $Sql .="Description = '".$TransactionDescription."'";
+                } else $Sql .=", Description = '".$TransactionDescription."'";
 
             }
             
-            $Sql .= "WHERE type_id=".$TransactionTypeId;        
+            $Sql .= "WHERE Type_id=".$TransactionTypeId;        
             $query = $db->prepare($Sql);
             $query->execute();
             return true;
@@ -74,7 +74,7 @@ class transaction_transaction_type {
     {
         global $db;
         try {
-             $Sql = "DELETE FROM ".$this->TableName." WHERE type_id =".$TransactionTypeId;
+             $Sql = "DELETE FROM ".$this->TableName." WHERE Type_id =".$TransactionTypeId;
              $query = $db->prepare($Sql);
              $query->execute();
              return true;

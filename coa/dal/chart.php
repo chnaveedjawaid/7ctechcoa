@@ -33,7 +33,7 @@ class chart {
         global $db;
 		
         if($ChartName != "" && $ChartDescription != ""){
-            $Sql = 'INSTER INTO ' .$this->TableName. '(name, description)';
+            $Sql = 'INSTER INTO ' .$this->TableName. '(Name, Description)';
             $Sql = $Sql . 'VALUES("' . $ChartName . '","' . $ChartDescription . '")';
             try{
             $query = $db->prepare($Sql);
@@ -54,7 +54,7 @@ class chart {
             global $db;
             
             if($ChartName != "" && $ChartDescription != "" && $ChartId != ""){
-                $Sql = 'UPDATE '.$this->TableName.' SET name = '.$ChartName.', description='.$ChartDescription.' WHERE id ='.$ChartId;
+                $Sql = 'UPDATE '.$this->TableName.' SET Name = '.$ChartName.', Description='.$ChartDescription.' WHERE Id ='.$ChartId;
                 try{
                 $query = $db->prepare($Sql);
                 $query->execute();
@@ -76,7 +76,7 @@ class chart {
             global $db;
 		
             if($ChartId != ""){
-                $Sql = "DELETE FROM " . $this->TableName . " WHERE id =" . $ChartId;
+                $Sql = "DELETE FROM " . $this->TableName . " WHERE Id =" . $ChartId;
                 try{
                 $query = $db->prepare($Sql);
                 $query->execute();

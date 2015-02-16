@@ -30,7 +30,7 @@ class post_transaction {
         global $db;
         try
         {
-            $Sql = 'INSTER INTO '.$this->TableName.'(entity_type,entity_name, date, time, activity_type)';
+            $Sql = 'INSTER INTO '.$this->TableName.'(Entity_type,Entity_name, Date, Time, Activity_type)';
             $Sql .= 'VALUES("'.$TraceabilityEntityType.'","'.$TraceabilityEntityName.'","'.$TraceabilityTime.'","'.$TraceabilityActivityType.'")';
             $query = $db->prepare($Sql);
             $query->execute();
@@ -53,36 +53,36 @@ class post_transaction {
         try{
             $Sql = "UPDATE ".$this->TableName." SET ";
             if ($TraceabilityEntityType != "") {
-                $Sql .= "entity_type = '".$TraceabilityEntityType."'";
+                $Sql .= "Entity_type = '".$TraceabilityEntityType."'";
             }
             if ($TraceabilityEntityName != "") {
                 if($TraceabilityEntityType == "")
                 {
-                    $Sql .="entity_name = '".$TraceabilityEntityName."'";
-                } else $Sql .=", entity_name = '".$TraceabilityEntityName."'";
+                    $Sql .="Entity_name = '".$TraceabilityEntityName."'";
+                } else $Sql .=", Entity_name = '".$TraceabilityEntityName."'";
 
             }
             if ($TraceabilityDate != "") {
                 if($TraceabilityEntityType=="" && $TraceabilityEntityName=="")
                 {
-                    $Sql .= "date = '".$TraceabilityDate."'";
-                } else $Sql .= ", date = '".$TraceabilityDate."'";
+                    $Sql .= "Date = '".$TraceabilityDate."'";
+                } else $Sql .= ", Date = '".$TraceabilityDate."'";
 
             }
             if ($TraceabilityTime != "") {
                 if($TraceabilityEntityType == "" && $TraceabilityEntityName == "" && $TraceabilityDate == "")
                 {
-                    $Sql .= "time = '".$TraceabilityTime."'";
-                } else $Sql .= ", time = '".$TraceabilityTime."'";
+                    $Sql .= "Time = '".$TraceabilityTime."'";
+                } else $Sql .= ", Time = '".$TraceabilityTime."'";
 
             }
             if ($TraceabilityActivityType != "") {
                 if($TraceabilityEntityType == "" && $TraceabilityEntityName == "" && $TraceabilityDate == "" && $TraceabilityTime==""){
-                    $Sql .= "activity_type = '".$TraceabilityActivityType."'";
-                } else $Sql .= ", activity_type = '".$TraceabilityActivityType."'";            
+                    $Sql .= "Activity_type = '".$TraceabilityActivityType."'";
+                } else $Sql .= ", Activity_type = '".$TraceabilityActivityType."'";            
             }
         		
-            $Sql .= "WHERE id=".$TraceabilityId;        
+            $Sql .= "WHERE Id=".$TraceabilityId;        
             $query = $db->prepare($Sql);
             $query->execute();
             return true;
@@ -95,7 +95,7 @@ class post_transaction {
     {
         global $db;
         try {
-             $Sql = "DELETE FROM ".$this->TableName." WHERE id =".$TraceabilityId;
+             $Sql = "DELETE FROM ".$this->TableName." WHERE Id =".$TraceabilityId;
              $query = $db->prepare($Sql);
              $query->execute();
              return true;

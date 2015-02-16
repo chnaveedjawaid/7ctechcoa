@@ -32,7 +32,7 @@ class transaction {
     {
         global $db;
         
-        $Sql = "SELECT MAX(ID) FROM ".$this->TableName;
+        $Sql = "SELECT MAX(Id) FROM ".$this->TableName;
         
         try{
         $query = $db->prepare($Sql);
@@ -52,7 +52,7 @@ class transaction {
         global $db;
 		
         if($TransactionTypeId != "" && $TransactionDescription != "" && $TransactionDate != "" && $TransactionTime != ""){
-            $Sql = 'INSTER INTO ' .$this->TableName. '(type_id, description, date, time)';
+            $Sql = 'INSTER INTO ' .$this->TableName. '(Type_id, Description, Date, Time)';
             $Sql = $Sql . 'VALUES("' . $TransactionTypeId . '","' . $TransactionDescription . '","' . $TransactionDate . '","' . $TransactionTime . '")';
             try{
                 $query = $db->prepare($Sql);
@@ -74,7 +74,7 @@ class transaction {
             global $db;
             
             if($TransactionTypeId != "" && $TransactionDescription != "" && $TransactionDate != "" && $TransactionTime != "" && $TransactionId != ""){
-                $Sql = 'UPDATE '.$this->TableName.' SET type_id = '.$TransactionTypeId.', description='.$TransactionDescription.', date='.$TransactionDate.', time='.$TransactionTime.' WHERE id ='.$TransactionId;
+                $Sql = 'UPDATE '.$this->TableName.' SET Type_id = '.$TransactionTypeId.', Description='.$TransactionDescription.', Date='.$TransactionDate.', Time='.$TransactionTime.' WHERE Id ='.$TransactionId;
                 try{
                 $query = $db->prepare($Sql);
                 $query->execute();
@@ -96,7 +96,7 @@ class transaction {
             global $db;
 		
             if($TransactionId != ""){
-                $Sql = "DELETE FROM " . $this->TableName . " WHERE id =" . $TransactionId;
+                $Sql = "DELETE FROM " . $this->TableName . " WHERE Id =" . $TransactionId;
                 try{
                 $query = $db->prepare($Sql);
                 $query->execute();
