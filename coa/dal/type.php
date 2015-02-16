@@ -29,7 +29,7 @@ class type {
         global $db;
         try
         {
-            $Sql = 'INSERT INTO '.$this->TableName.'(type_description, type_name)';
+            $Sql = 'INSERT INTO '.$this->TableName.'(Type_description, Type_name)';
             $Sql .= 'VALUES("'.$TypeDescription.'","'.$TypeName.'")';
             $query = $db->prepare($Sql);
             $query->execute();
@@ -50,17 +50,17 @@ class type {
         try{
             $Sql = "UPDATE ".$this->TableName." SET ";
             if ($TypeDescription != "") {
-                $Sql .= "type_description = '".$TypeDescription."'";
+                $Sql .= "Type_description = '".$TypeDescription."'";
             }
             if ($TypeName != "") {
                 if($TypeDescription == "")
                 {
-                    $Sql .="type_name = '".$TypeName."'";
-                } else $Sql .=", type_name = '".$TypeName."'";
+                    $Sql .="Type_name = '".$TypeName."'";
+                } else $Sql .=", Type_name = '".$TypeName."'";
 
             }
             
-            $Sql .= "WHERE type_id=".$TypeId;        
+            $Sql .= "WHERE Type_id=".$TypeId;        
             $query = $db->prepare($Sql);
             $query->execute();
             return true;
@@ -73,7 +73,7 @@ class type {
     {
         global $db;
         try {
-             $Sql = "DELETE FROM ".$this->TableName." WHERE type_id =".$Typeid;
+             $Sql = "DELETE FROM ".$this->TableName." WHERE Type_id =".$Typeid;
              $query = $db->prepare($Sql);
              $query->execute();
              return true;
