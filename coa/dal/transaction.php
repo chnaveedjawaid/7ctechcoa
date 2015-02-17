@@ -52,7 +52,7 @@ class transaction {
         global $db;
 		
         if($TransactionTypeId != "" && $TransactionDescription != "" && $TransactionDate != "" && $TransactionTime != ""){
-            $Sql = 'INSTER INTO ' .$this->TableName. '(Type_id, Description, Date, Time)';
+            $Sql = 'INSERT INTO ' .$this->TableName. '(Type_id, Description, Date, Time)';
             $Sql = $Sql . 'VALUES("' . $TransactionTypeId . '","' . $TransactionDescription . '","' . $TransactionDate . '","' . $TransactionTime . '")';
             try{
                 $query = $db->prepare($Sql);
