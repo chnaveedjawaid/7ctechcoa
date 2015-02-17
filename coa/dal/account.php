@@ -41,7 +41,7 @@ class account {
     public function Insert_Drcr($acountid,$dr,$cr)
     {
         global $db;
-        $Sql = 'INSERT INTO '.$this->DrcrTableName.' VALUES ('.$acountid.','.$dr.','.$cr.')';
+        $Sql = 'INSERT INTO '.$this->DrcrTableName.' (Account_id , Debit , Credit) VALUES ('.$acountid.','.$dr.','.$cr.')';
         try{
             $query = $db->prepare($Sql);
             $query->execute();
@@ -83,10 +83,10 @@ class account {
         global $db;
         if($Condtion == "")
         {
-            $Sql = "SELECT account.Id , account.Name as 'ac_name' , account.Description, account.Parent_id, chart.Name as 'type_name' FROM `account` ,  `chart` WHERE (account.Type_id = chart.id)";
+            $Sql = "SELECT account.Id , account.Name as 'ac_name' , account.Description, account.Parent_id, chart.Name as 'type_name' FROM `account` ,  `chart` WHERE (account.Chart_id = chart.id)";
         }
         else {
-            $Sql = "SELECT account.Id ,account.Name as 'ac_name' , account.Description,account.Parent_id, chart.Name as 'type_name' FROM `account` ,  `chart` WHERE (account.Type_id = chart.Id AND ".$Condtion.")";
+            $Sql = "SELECT account.Id ,account.Name as 'ac_name' , account.Description,account.Parent_id, chart.Name as 'type_name' FROM `account` ,  `chart` WHERE (account.Chart_id = chart.Id AND ".$Condtion.")";
         }
         try{
             $query = $db->prepare($Sql);
@@ -106,11 +106,11 @@ class account {
     // @Parameter $AccountDescription  
     // @Parameter $parent_id  
     // @Parameter $AccountTypeId  
-    public function Add($AccountName, $AccountDescription, $parent_id, $AccountTypeId)
+    public function Add($AccountName, $AccountDescription, $parent_id, $AccountTypeId,$UserId)
     {
         global $db;
-        $sql = "INSERT INTO ".$this->TableName." (Name, Description, Type_id,Parent_id)";
-        $sql .= 'VALUES("'.$AccountName.'","'.$AccountDescription.'",'.$AccountTypeId.','.$parent_id.')'; 
+        $sql = "INSERT INTO ".$this->TableName." (Name, Description, Chart_id,Parent_id,User_id)";
+        $sql .= 'VALUES("'.$AccountName.'","'.$AccountDescription.'",'.$AccountTypeId.','.$parent_id.','.$UserId.')'; 
         try{
             $query = $db->prepare($sql);
             $query->execute();
@@ -126,7 +126,7 @@ class account {
     // @Parameter $parent_id  
     // @Parameter $AccountTypeId  
     // @Parameter $AccountId  
-    public function Update($AccountName, $AccountDescription, $AccountTypeId, $parent_id, $AccountId)
+    public function Update($AccountName, $AccountDescription, $AccountTypeId, $parent_id, $AccountId , $UserId)
     {
         global $db;
         $AccountName = trim($AccountName);
@@ -134,6 +134,8 @@ class account {
         $AccountTypeId = trim($AccountTypeId);
         $AccountId = trim($AccountId);
         $parent_id = trim($parent_id);
+        $UserId = trim($UserId);
+        $ChartId = trim($ChartId);
         
         
         $Sql = "UPDATE ".$this->TableName." SET ";
@@ -151,10 +153,10 @@ class account {
         }
         if ($AccountTypeId != "") {
             if ($AccountName == "" && $AccountDescription == "") {
-                $Sql .="  Type_id = ".$AccountTypeId."";
+                $Sql .="  Chart_id = ".$AccountTypeId."";
             }
             else {
-                $Sql .= " , Type_id = ".$AccountTypeId."";
+                $Sql .= " , Chart_id = ".$AccountTypeId."";
             }
         }
         if ($parent_id != "") {
@@ -163,6 +165,14 @@ class account {
             }
             else {
                 $Sql .=" , Parent_id = ".$parent_id."";
+            }
+        }
+        if ($UserId != "") {
+            if ($AccountName == "" && $AccountDescription == "" && $AccountTypeId == "" && $parent_id == "") {
+                $Sql .= "  User_id = ".$UserId."";
+            }
+            else {
+                $Sql .=" , User_id = ".$UserId."";
             }
         }
         try{

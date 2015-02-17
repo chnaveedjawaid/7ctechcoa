@@ -13,18 +13,19 @@
  */
 class transaction_logic {
     
-    public function PostTransection($_TransectionDescription, $_TransectionDate, $_TransectionTime, $_TransectionType_id, $_Account_id, $_CorespondingAccount_id, $_Dabit, $_Verbrose){
+    public function PostTransection($_TransectionDescription, $_TransectionDate, $_TransectionTime, $_TransectionType_id, $_Account_id, $_CorespondingAccount_id, $_Dabit,$UserId, $_Verbrose){
         $Account = new accounts_logic();
         $Account->DrCr($_Account_id, $_Dabit, 00, false);
         $Account->DrCr($_CorespondingAccount_id, 00, $_Dabit, false);
-        $General = new general_logic();
-        $General->NewTransection($_Account_id, $_Dabit, 00, false);
-        $General->NewTransection($_CorespondingAccount_id, 00, $_Dabit, false);
         $Transaction = new transaction();
-        $Transaction->Add($_TransectionType_id, $_TransectionDescription, $_TransectionDate, $_TransectionTime);
-        $result = $Transaction->LastID();
+        $Transaction->Add($_TransectionType_id, $_TransectionDescription, $_TransectionDate, $_TransectionTime,$UserId);
+        $res = $Transaction->LastID();
+        $TransactionId = $res['rows']['Id'];
+        $General = new general_logic();
+        $General->NewTransection($TransactionId,$_Account_id, $_Dabit, 00, false);
+        $result = $General->NewTransection($TransactionId,$_CorespondingAccount_id, 00, $_Dabit, false);
         $Output = new Output();
-        return $Output->ReturnOutputV($result);
+        return $Output->ReturnOutputCUD($res,$_Verbrose);
     }
     
     public function GetGeneralJournal(){

@@ -14,10 +14,10 @@
 class general_logic {
      public $Verbrose = true;
      
-     public function NewTransection($AccountId, $Dr, $Cr, $_Verbrose){
+     public function NewTransection($TransactionId,$AccountId, $Dr, $Cr, $_Verbrose){
          $output = new Output(); 
          $General = new transaction_general_general();
-         $result = $General->Add($AccountId, $Dr, $Cr);
+         $result = $General->Add($TransactionId,$AccountId, $Dr, $Cr);
          return $output->ReturnOutputCUD($result,$_Verbrose);
      }
 }

@@ -47,17 +47,15 @@ class transaction_general_general {
         return $result;         
     }
     
-    public function Add($TransactionSubAccountId, $TransactionDebit, $TransactionCredit){
-        
+    public function Add($TransactionId,$TransactionSubAccountId, $TransactionDebit, $TransactionCredit){        
         global $db;
         try
         {
-            $Sql = 'INSERT INTO '.$this->TableName.'(Account_id, Debit, Credit)';
-            $Sql .= 'VALUES("'.$TransactionSubAccountId.'","'.$TransactionDebit.'","'.$TransactionCredit.'")';
+            $Sql  = 'INSERT INTO '.$this->TableName.'(Transaction_id,Account_id, Debit, Credit)';
+            $Sql .= 'VALUES("'.$TransactionId.'","'.$TransactionSubAccountId.'","'.$TransactionDebit.'","'.$TransactionCredit.'")';
             $query = $db->prepare($Sql);
             $query->execute();
-            return true;
-            
+            return true;            
         } catch(PDOException $e)
         {
             return $e->getMessage();
