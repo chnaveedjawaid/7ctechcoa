@@ -26,4 +26,11 @@ class transaction_logic {
         $Output = new Output();
         return $Output->ReturnOutputV($result);
     }
+    
+    public function GetGeneralJournal(){
+        $trans = new transaction_general_general();
+        $output = new Output();
+        $res = $trans->SelectFormatted();
+        return $output->ReturnOutputV($res);
+    }
 }

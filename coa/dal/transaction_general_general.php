@@ -8,7 +8,7 @@ class transaction_general_general {
         
     }
     
-    public function Select(){
+    public function Select($condition){
         $Sql = "SELECT * FROM ".$this->TableName." ".$Condtion;
         try
         {
@@ -21,6 +21,30 @@ class transaction_general_general {
             $arr['msg'] = $e->getMessage();
         }
         return $arr;
+    }
+    
+    public function SelectFormatted(){
+        global $db;
+        $result = array();
+        $sql = "SELECT a.`Transaction_id` , a.`Account_id` , b.`Name` , a.`Debit` , a.`Credit`  FROM `transaction_general_general` a LEFT JOIN account b ON a.`Account_id` = b.`Id`";
+        try
+        {
+            $query = $db->prepare($sql);
+            $query->execute();
+            if($query->rowCount()>0)
+            {
+                $result['rows'] = $query->fetchAll(PDO::FETCH_ASSOC);
+                $result['err'] = false;
+            } else 
+            {
+                $result['err'] = true;
+                $result['msg'] = "No Record Available";
+            }            
+        } catch (PDOException $ex) {
+             $result['err'] = true;
+             $result['msg'] = $ex->getMessage();
+        }
+        return $result;         
     }
     
     public function Add($TransactionSubAccountId, $TransactionDebit, $TransactionCredit){
