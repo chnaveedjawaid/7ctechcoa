@@ -3,7 +3,9 @@
 class traceability {
 
     public $TableName = "traceability";
-
+    
+    // GET A SPECIFIC Traceability OR ALL Traceability
+    // @Parameter $Condition 
     public function Select($Condition)
     {
         global $db;
@@ -27,7 +29,13 @@ class traceability {
 
         return $result;
     }
-
+    
+    // INSERT Traceability
+    // @Parameter $TraceabilityEntityType
+    // @Parameter $TraceabilityEntityName
+    // @Parameter $TraceabilityDate
+    // @Parameter $TraceabilityTime
+    // @Parameter $TraceabilityActivityType
     public function Add($TraceabilityEntityType, $TraceabilityEntityName, $TraceabilityDate, $TraceabilityTime, $TraceabilityActivityType)
     {
         global $db;
@@ -50,6 +58,13 @@ class traceability {
         
     }
 	
+    // UPDATE Traceability
+    // @Parameter $TraceabilityEntityType
+    // @Parameter $TraceabilityEntityName
+    // @Parameter $TraceabilityDate
+    // @Parameter $TraceabilityTime
+    // @Parameter $TraceabilityActivityType 
+    // @Parameter $TraceabilityId
 	public function Update($TraceabilityEntityType, $TraceabilityEntityName, $TraceabilityDate, $TraceabilityTime, $TraceabilityActivityType, $TraceabilityId){
             global $db;
             
@@ -71,6 +86,8 @@ class traceability {
             return $result;
 	}
 	
+        //DELETE Traceability
+        //@Parameter $TraceabilityId
 	public function Delete_record($TraceabilityId){
             global $db;
 		

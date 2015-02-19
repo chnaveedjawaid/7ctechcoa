@@ -3,7 +3,9 @@
 class transaction {
 
     public $TableName = "transaction";
-
+    
+    // GET A SPECIFIC Transaction OR ALL Transaction
+    // @Parameter $Condition 
     public function Select($Condition)
     {
         global $db;
@@ -28,7 +30,8 @@ class transaction {
         return $result;
     }
 	
-	public function LastID()
+    // GET A LAST ID
+    public function LastID()
     {
         global $db;
         
@@ -46,7 +49,13 @@ class transaction {
 
         return $result;
     }
-
+    
+    // INSERT TRANSACTION
+    // @Parameter $TransactionTypeId
+    // @Parameter $TransactionDescription
+    // @Parameter $TransactionDate
+    // @Parameter $TransactionTime
+    // @Parameter $UserId
     public function Add($TransactionTypeId, $TransactionDescription, $TransactionDate, $TransactionTime,$UserId)
     {
         global $db;
@@ -70,6 +79,13 @@ class transaction {
 		return $result;
     }
 	
+    // UPDATE TRANSACTION
+    // @Parameter $TransactionTypeId
+    // @Parameter $TransactionDescription
+    // @Parameter $TransactionDate
+    // @Parameter $TransactionTime
+    // @Parameter $TransactionId
+    // @Parameter $UserId
 	public function Update($TransactionTypeId, $TransactionDescription, $TransactionDate, $TransactionTime, $TransactionId, $UserId){
             global $db;            
             if($TransactionTypeId != "" && $TransactionDescription != "" && $TransactionDate != "" && $TransactionTime != "" && $TransactionId != "" && $UserId!=""){
@@ -86,7 +102,8 @@ class transaction {
             }
             return $result;
 	}
-	
+	//DELETE TRANSACTION
+        //@Parameter $TransactionId
 	public function Delete_record($TransactionId){
             global $db;
 		

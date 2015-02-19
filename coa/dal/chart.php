@@ -3,7 +3,9 @@
 class chart {
 
     public $TableName = "chart";
-
+    
+    // GET A SPECIFIC CHART OR ALL CHART
+    // @Parameter $Condition 
     public function Select($Condition)
     {
         global $db;
@@ -27,7 +29,10 @@ class chart {
 
         return $result;
     }
-
+    
+    // INSERT CHART
+    // @Parameter $ChartName
+    // @Parameter $ChartDescription
     public function Add($ChartName,$ChartDescription)
     {
         global $db;
@@ -49,7 +54,10 @@ class chart {
 	return $result;
         
     }
-	
+	 // UPDATE CHART
+        // @Parameter $ChartName  
+        // @Parameter $ChartDescription  
+        // @Parameter $ChartId   
 	public function Update($ChartName,$ChartDescription,$ChartId){
             global $db;
             
@@ -72,6 +80,8 @@ class chart {
             return $result;
 	}
 	
+        //DELETE SPECIFIC CHART
+        //@Parameter $ChartId
 	public function Delete_record($ChartId){
             global $db;
 		

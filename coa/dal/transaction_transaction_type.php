@@ -9,7 +9,9 @@ class transaction_transaction_type {
         
     }
     
-    public function Select(){
+    // GET A SPECIFIC Transaction Type OR ALL Transaction Type
+    // @Parameter $condition 
+    public function Select($Condtion){
         $Sql = "SELECT * FROM ".$this->TableName." ".$Condtion;
         try
         {
@@ -25,6 +27,9 @@ class transaction_transaction_type {
         }
     }
     
+    // INSERT TRANSACTION Type
+    // @Parameter $TransactionName
+    // @Parameter $TransactionDescription
     public function Add($TransactionName, $TransactionDescription){
         
         global $db;
@@ -42,6 +47,10 @@ class transaction_transaction_type {
         }
     }
     
+    // UPDATE TRANSACTION Type
+    // @Parameter $TransactionName
+    // @Parameter $TransactionDescription
+    // @Parameter $TransactionTypeId
     public function Update($TransactionName, $TransactionDescription, $TransactionTypeId){
         global $db;
         $TransactionName = trim($TransactionName);
@@ -70,6 +79,8 @@ class transaction_transaction_type {
         }
     }
     
+    //DELETE TRANSACTION TYPE
+    //@Parameter $TransactionTypeId
     public function Delete_record($TransactionTypeId)
     {
         global $db;

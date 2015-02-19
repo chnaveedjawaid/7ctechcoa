@@ -8,7 +8,9 @@ class post_transaction {
         
     }
     
-    public function Select(){
+    // GET A SPECIFIC Traceability OR ALL Traceability
+    // @Parameter $Condition 
+    public function Select($Condtion){
         $Sql = "SELECT * FROM ".$this->TableName." ".$Condtion;
         try
         {
@@ -25,6 +27,12 @@ class post_transaction {
         return $result;
     }
     
+    // INSERT Traceability
+    // @Parameter $TraceabilityEntityType
+    // @Parameter $TraceabilityEntityName
+    // @Parameter $TraceabilityDate
+    // @Parameter $TraceabilityTime
+    // @Parameter $TraceabilityActivityType
     public function Add($TraceabilityEntityType, $TraceabilityEntityName, $TraceabilityDate, $TraceabilityTime, $TraceabilityActivityType){
         
         global $db;
@@ -42,6 +50,13 @@ class post_transaction {
         }
     }
     
+    // UPDATE Traceability
+    // @Parameter $TraceabilityEntityType
+    // @Parameter $TraceabilityEntityName
+    // @Parameter $TraceabilityDate
+    // @Parameter $TraceabilityTime
+    // @Parameter $TraceabilityActivityType 
+    // @Parameter $TraceabilityId
     public function Update($TraceabilityEntityType, $TraceabilityEntityName, $TraceabilityDate, $TraceabilityTime, $TraceabilityActivityType, $TraceabilityId){
         global $db;
         $TraceabilityEntityType = trim($TraceabilityEntityType);
@@ -91,6 +106,8 @@ class post_transaction {
         }
     }
     
+    //DELETE Traceability
+    //@Parameter $TraceabilityId
     public function Delete_record($TraceabilityId)
     {
         global $db;

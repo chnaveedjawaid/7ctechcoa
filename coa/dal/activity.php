@@ -4,6 +4,8 @@ class activity {
 
     public $TableName = "activity_type";
 
+    // GET A SPECIFIC ACTIVITY OR ALL ACTIVITY
+    // @Parameter $Condition 
     public function Select($Condition)
     {
         global $db;
@@ -32,7 +34,10 @@ class activity {
 
         return $result;
     }
-
+    
+    // INSERT ACTIVITY
+    // @Parameter $accountid Activity Type
+    // @Parameter $ActivityDescription Activity Description
     public function Add($ActivityType,$ActivityDescription)
     {
         global $db;
@@ -53,12 +58,16 @@ class activity {
         }
        
     }
-	
+	 // UPDATE ACTIVITY
+        // @Parameter $ActivityType  
+        // @Parameter $ActivityDescription  
+        // @Parameter $ActivityId   
 	public function Update($ActivityType,$ActivityDescription,$ActivityId){
             global $db;
             
             if($ActivityType != "" && $ActivityDescription != "" && $ActivityId != ""){
                 $Sql = 'UPDATE '.$this->TableName.' SET Type = '.$ActivityType.', Description='.$ActivityDescription.' WHERE Id ='.$ActivityId;
+                
                 try{
                 $query = $db->prepare($Sql);
                 $query->execute();
@@ -75,7 +84,8 @@ class activity {
 
             return $result;
 	}
-	
+	//DELETE SPECIFIC RECORD
+        //@Parameter $ActivityId
 	public function Delete_record($ActivityId){
             global $db;
 		

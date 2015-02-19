@@ -8,6 +8,8 @@ class transaction_general_general {
         
     }
     
+    // GET A SPECIFIC Transaction GG OR ALL Transaction GG
+    // @Parameter $condition 
     public function Select($condition){
         $Sql = "SELECT * FROM ".$this->TableName." ".$Condtion;
         try
@@ -23,6 +25,7 @@ class transaction_general_general {
         return $arr;
     }
     
+    // GET Transactions GG With Account Information
     public function SelectFormatted(){
         global $db;
         $result = array();
@@ -47,6 +50,11 @@ class transaction_general_general {
         return $result;         
     }
     
+    // INSERT TRANSACTION
+    // @Parameter $TransactionId
+    // @Parameter $TransactionSubAccountId
+    // @Parameter $TransactionDebit
+    // @Parameter $TransactionCredit
     public function Add($TransactionId,$TransactionSubAccountId, $TransactionDebit, $TransactionCredit){        
         global $db;
         try
@@ -62,6 +70,11 @@ class transaction_general_general {
         }
     }
     
+    // UPDATE TRANSACTION
+    // @Parameter $TransactionSubAccountId
+    // @Parameter $TransactionDebit
+    // @Parameter $TransactionCredit
+    // @Parameter $TransactionId
     public function Update($TransactionSubAccountId, $TransactionDebit, $TransactionCredit, $TransactionId){
         global $db;
         $TransactionSubAccountId = trim($TransactionSubAccountId);
@@ -96,6 +109,8 @@ class transaction_general_general {
         }
     }
     
+    //DELETE TRANSACTION
+    //@Parameter $TransactionId
     public function Delete_record($TransactionId)
     {
         global $db;
