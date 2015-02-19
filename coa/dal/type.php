@@ -8,7 +8,9 @@ class type {
         
     }
     
-    public function Select(){
+    // GET A SPECIFIC Type OR ALL Type
+    // @Parameter $condition 
+    public function Select($condition){
         $Sql = "SELECT * FROM ".$this->TableName." ".$Condtion;
         try
         {
@@ -24,6 +26,9 @@ class type {
         }
     }
     
+    // INSERT TYPE
+    // @Parameter $TypeDescription
+    // @Parameter $TypeName
     public function Add($TypeDescription, $TypeName){
         
         global $db;
@@ -41,6 +46,10 @@ class type {
         }
     }
     
+    // UPDATE TYPE
+    // @Parameter $TypeDescription
+    // @Parameter $TypeName
+    // @Parameter $TypeId
     public function Update($TypeDescription, $TypeName, $TypeId){
         global $db;
         $TypeDescription = trim($TypeDescription);
@@ -69,6 +78,8 @@ class type {
         }
     }
     
+    //DELETE TYPE
+    //@Parameter $Typeid
     public function Delete_record($Typeid)
     {
         global $db;
