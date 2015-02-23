@@ -4834,7 +4834,7 @@ a.zocial {
   content: "#";
 }
 .zocial.digg:before {
-  content: ";";
+  content: ";" ;
 }
 .zocial.disqus:before {
   content: "Q";
