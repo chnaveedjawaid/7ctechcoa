@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 23, 2015 at 01:37 PM
+-- Generation Time: Feb 23, 2015 at 02:02 PM
 -- Server version: 5.5.34
 -- PHP Version: 5.4.22
 
@@ -174,6 +174,37 @@ INSERT INTO `chart` (`Id`, `Name`, `Description`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `logedin`
+--
+
+CREATE TABLE IF NOT EXISTS `logedin` (
+  `userID` varchar(255) NOT NULL,
+  `logintime` date NOT NULL,
+  `validity` double NOT NULL,
+  PRIMARY KEY (`userID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `logedin`
+--
+
+INSERT INTO `logedin` (`userID`, `logintime`, `validity`) VALUES
+('glob_1', '2015-02-23', 50000);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `loginvalidity`
+--
+
+CREATE TABLE IF NOT EXISTS `loginvalidity` (
+  `validity` double NOT NULL DEFAULT '50000',
+  `calls_valid` int(255) NOT NULL DEFAULT '10'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `traceability`
 --
 
@@ -321,6 +352,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `userID_caller` int(11) NOT NULL,
   `appID` varchar(255) NOT NULL,
   `appauthlevel` varchar(255) NOT NULL DEFAULT 'full',
+  `last_call` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`userID_local`),
   UNIQUE KEY `userID_caller` (`userID_caller`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -329,8 +361,8 @@ CREATE TABLE IF NOT EXISTS `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`userID_local`, `userID_caller`, `appID`, `appauthlevel`) VALUES
-('glob_1', 1, '1', 'full');
+INSERT INTO `users` (`userID_local`, `userID_caller`, `appID`, `appauthlevel`, `last_call`) VALUES
+('glob_1', 1, '1', 'full', '0000-00-00 00:00:00');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
