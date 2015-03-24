@@ -1,4 +1,4 @@
-<?php require 'config/db.php';
+<?php require '../config/db.php';
 
 class transaction_general_general {
     public $TableName = "transaction_general_general";

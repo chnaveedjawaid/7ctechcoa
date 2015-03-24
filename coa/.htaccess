@@ -1,0 +1,21 @@
+<Files *.php>
+    Order Deny,Allow
+    Deny from all
+</Files>
+
+<Files *.json>
+    Order Deny,Allow
+    Deny from all
+</Files>
+
+<Files accesspoint.php>
+    Order Allow,Deny
+    Allow from all
+</Files>
+
+
+	
+
+
+
+

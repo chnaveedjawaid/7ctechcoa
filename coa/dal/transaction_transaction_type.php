@@ -1,4 +1,4 @@
-<?php require 'config/db.php';
+<?php require '../config/db.php';
 
 
 class transaction_transaction_type {

@@ -1,23 +1,27 @@
 <?php require("init.php");
 
-/*$accObj = new accounts_logic();
-$res = $accObj->CreateAccount('Miscellaneous Expense', 'Miscellaneous Expense', 1, 2, true);
-$res = $accObj->LoadAllAcount();*/
+//To check if user is logedin and 50000 sec has been passed, It'll be logout
+	//$valCheck = new validity_Check();
 
-$accObj = new accounts_logic();
-$res = $accObj->LoadAllAcount();
+//Create an application 
+//Return api key 
+	//$app = new access_logic();
+	//$bb = $app->CreateApplication('tiekapp2', 'testing application', true);
 
-echo "<pre>";
-print_r(json_decode($res));
-echo "</pre>";
+//Create or Login user
+// @Parameter userIDcaller
+// @Parameter app_key
+	$app = new access_logic();
+	$bb = $app->CreateUser(46, '65a1fede9361f46ee87d4542bab2c1ce', 'full', true);
 
-//public function PostTransection($_TransectionDescription, $_TransectionDate, $_TransectionTime, $_TransectionType_id, $_Account_id, $_CorespondingAccount_id, $_Dabit, $_Verbrose){
-	
-$genObj = new transaction_logic();
-$res = $genObj->PostTransection('Provided services to its customers and received $28,500 in cash.', '2015-01-13', '12:00:00', 1, 1, 9, 28500, true);
+// Check is user login
+// @Parameter userIDcaller
+// @Parameter app_key
+	//$auth = new authentication_logic();
+	//$bb = $auth->isLogin(46, '65a1fede9361f46ee87d4542bab2c1ce', true);
 
-echo "<pre>";
-print_r(json_decode($res));
-echo "</pre>";
+
+
+echo "<pre>" . print_r($bb) . "</pre>";
 
 ?>

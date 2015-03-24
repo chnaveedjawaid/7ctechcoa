@@ -1,4 +1,4 @@
-<?php require 'config/db.php';
+<?php require '../config/db.php';
 
 class account {
     
@@ -201,5 +201,36 @@ class account {
             return $e->getMessage();                    
         }
     }
+	
+	//CREATE VIEW
+    //@Parameter userid For Specific user
+	public function Create_view($userid){
+		 global $db;
+		 $Sql = "CREATE VIEW account_view AS SELECT * FROM ".$this->TableName + " WHERE User_id = '$userid'";
+			try
+			{
+				$query = $db->prepare($Sql);
+				$query->execute();
+				return true;
+			} catch(PDOException $e){
+				return $e->getMessage();                    
+			}
+	}
+	
+	public function Select_view(){
+		global $db;
+        $sql = "SELECT * FROM account_view";
+        
+        try{
+            $query = $db->prepare($sql);
+            $query->execute();
+            $arr['rows'] = $query->fetchAll(PDO::FETCH_ASSOC);
+            $arr['err'] = false;
+        } catch(PDOException $e){
+            $arr['err'] = true;
+            $arr['msg'] = $e->getMessage();            
+        } 
+        return $arr;
+	}
 
 } 
