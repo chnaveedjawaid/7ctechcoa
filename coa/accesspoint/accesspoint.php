@@ -6,9 +6,10 @@
 //Create an application 
 // @Parameter App Name
 // @Parameter App Description 
+// @Parameter Master Authkey
 // @Return api key 
 	$app = new access_logic();
-	$bb = $app->CreateApplication('tariq ali is', 'tariq app is the best', true);
+	$bb = $app->CreateApplication($_GET["app_name"], $_GET["app_desc"],$_GET["auth_key"], true);
 
 //Create or Login user
 // @Parameter userIDcaller
