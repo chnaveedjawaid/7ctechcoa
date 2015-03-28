@@ -14,7 +14,8 @@ class access_logic {
     // @Parameter $appname appname
     // @Parameter $appdisc appdisc
 	// @Parameter $_Verbrose Verbrose
-	public function CreateApplication($appname,$appdisc,$_Verbrose){
+	public function CreateApplication($appname,$appdisc,$_authkey,$_Verbrose){
+            $auth_key = $_authkey;
 		$Output = new Output();
 	   	$str = file_get_contents('../data.json');
 		$json = json_decode($str, true);
