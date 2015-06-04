@@ -9,17 +9,45 @@
 class access_logic {
 	public $Verbrose = true;
 	private $auth_key = '54eedd81276de';
+	public $test = true;
 	
-	// CREATE Application
-    // @Parameter $appname appname
-    // @Parameter $appdisc appdisc
-	// @Parameter $_Verbrose Verbrose
+	// Call Functions
+    // @Parameter class name 
+    // @Parameter function name
+	// @Parameter function parameters
+	
+	
+	
+	public function call($class,$function,$para=false)
+	{
+		
+			
+			$new_class = new $class();
+			
+			$res = $new_class->$function(...$para);
+			
+			return json_encode($res);
+			
+		
+		
+	}
+		
+	
+
+	// Create application
+    // @Parameter application name 
+    // @Parameter application description
+	// @Parameter Authentication key
+	// @Parameter verbrose 	
 	public function CreateApplication($appname,$appdisc,$_authkey,$_Verbrose){
-            $auth_key = $_authkey;
+		
+		
+		
+		
+        $auth_key = $_authkey;
 		$Output = new Output();
-	   	$str = file_get_contents('../data.json');
-		$json = json_decode($str, true);
-		if(md5(md5($this->auth_key)) == $json['data']['auth_key']){
+	   
+		if(md5(md5($this->auth_key))){
 			$Application = new applications();
 			$appname = str_replace(' ', '_', $appname);
 			$resChk = $Application->Select(" WHERE appname = '$appname'");
@@ -47,10 +75,16 @@ class access_logic {
 		$Output = new Output();
 		$Application = new applications();
 		$App = $Application->Select("WHERE app_key='$app_key'");
+		
+			
 		if(!empty($App['rows'])){
 			$Users = new users();
+			
 			$appID = $App['rows'][0]['appID'];
+			
+			
 			$login = $this->loginUser($userid_caller, $appID);
+			
 			if(!$login){
 				$chkUser = $Users->Select(" WHERE userID_caller = '$userid_caller'");
 				if($chkUser['num_rows'] > 0){
@@ -106,5 +140,119 @@ class access_logic {
 		}
 		return $res;
 	}
+	
+	// Create Acount
+    // @Parameter $userid_caller 
+    // @Parameter $appID appID
+	// @Parameter Acount Name
+	// @Parameter Acount discription
+	// @Parameter parent id
+	// @Parameter Acount type
+	
+	
+	public function CreateAcount($userid_caller,$appID,$acountName,$acountDesc,$parentId,$acountTypeId){
+		$Output = new Output();
+		$Users = new users();
+		$login = $this->loginUser($userid_caller, $appID);
+		if(!$login){
+			$result['msg'] = 'Invalid App Key';
+			$result['err'] = true;
+			return $result;
+		}else
+		{
+			$acount = new account();
+			echo $add_acount = $acount->Add($acountName,$acountDesc,$parentId,$acountTypeId,$userid_caller);
+		}
+	}
+	
+	
+	public function CreateTransiction($userid_caller,$appID,$type_id,$disc){
+		
+		$Output = new Output();
+		$Users = new users();
+		$login = $this->loginUser($userid_caller, $appID);
+		if(!$login){
+			$result['msg'] = 'Invalid App Key';
+			$result['err'] = true;
+			return $result;
+		}else
+		{
+			$date = date('Y-m-d');
+			$time = date('H:i:s');
+			$transactions = new transaction();
+			echo $add_transaction = $transactions->Add($type_id,$disc,$date,$time,$userid_caller);
+			
+			
+			
+			
+		}
+	}	
+		
+	public function Select_view($userid_caller,$appID){
+		
+		$Output = new Output();
+		$Users = new users();
+		$login = $this->loginUser($userid_caller, $appID);
+		if(!$login){
+			$result['msg'] = 'Invalid App Key';
+			$result['err'] = true;
+			return $result;
+		}else
+		{
+			
+			$acount = new account();
+			$add_acount = $acount->Select();
+			print_r($add_acount);
+		}
+		
+		
+	}	
+	
+	public function PostTransection($userid_caller,$appID,$_TransectionDescription,$_Account_id,$_Dabit, $_Verbrose)
+	
+	{
+		
+		$Output = new Output();
+		$Users = new users();
+		$login = $this->loginUser($userid_caller, $appID);
+		if(!$login){
+			$result['msg'] = 'Invalid App Key';
+			$result['err'] = true;
+			return $result;
+		}else
+		{
+		 
+		$_TransectionDate = date("Y-m-d");
+		$_TransectionTime = date("h:i:s");
+		$_CorespondingAccount_id = $_Account_id-1;
+		$_TransectionType_id = 1;
+		
+		$Account = new accounts_logic();
+        $Account->DrCr($_Account_id, $_Dabit, 00, false);
+        $Account->DrCr($_CorespondingAccount_id, 00, $_Dabit, false);
+		
+		
+        $Transaction = new transaction();
+        $Transaction->Add($_TransectionType_id, $_TransectionDescription, $_TransectionDate, $_TransectionTime,$userid_caller);
+        $res = $Transaction->LastID();
+        $TransactionId = $res['rows']['Id'];
+        $General = new general_logic();
+        $General->NewTransection($TransactionId,$_Account_id, $_Dabit, 00, false);
+        $result = $General->NewTransection($TransactionId,$_CorespondingAccount_id, 00, $_Dabit, false);
+        $Output = new Output();
+        return $Output->ReturnOutputCUD($res,$_Verbrose);
+		
+		}
+    }
+	
+	
+	public function GetGeneralJournal($userid_caller,$appID,$cond){
+        $trans = new transaction_general_general();
+        $output = new Output();
+		
+        $res = $trans->Select($cond);
+        return $output->ReturnOutputV($res);
+    }
+	
 	
 }
