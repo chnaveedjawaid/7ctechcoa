@@ -11,14 +11,14 @@ class access_logic {
 	private $auth_key = '54eedd81276de';
 	public $test = true;
 	
-	// Call Functions
-    // @Parameter class name 
-    // @Parameter function name
-	// @Parameter function parameters
+	// CREATE Application
+    // @Parameter $appname appname
+    // @Parameter $appdisc appdisc
+	// @Parameter $_Verbrose Verbrose
 	
 	
 	
-	public function call($class,$function,$para=false)
+	public function call($key,$class,$function,$para=false)
 	{
 		
 			
@@ -32,13 +32,7 @@ class access_logic {
 		
 	}
 		
-	
-
-	// Create application
-    // @Parameter application name 
-    // @Parameter application description
-	// @Parameter Authentication key
-	// @Parameter verbrose 	
+		
 	public function CreateApplication($appname,$appdisc,$_authkey,$_Verbrose){
 		
 		
@@ -141,16 +135,7 @@ class access_logic {
 		return $res;
 	}
 	
-	// Create Acount
-    // @Parameter $userid_caller 
-    // @Parameter $appID appID
-	// @Parameter Acount Name
-	// @Parameter Acount discription
-	// @Parameter parent id
-	// @Parameter Acount type
-	
-	
-	public function CreateAcount($userid_caller,$appID,$acountName,$acountDesc,$parentId,$acountTypeId){
+	public function CreateAcount($userid_caller,$appID,$acountName,$acountDesc,$parentId,$acountTypeId,$isType=false){
 		$Output = new Output();
 		$Users = new users();
 		$login = $this->loginUser($userid_caller, $appID);
@@ -161,7 +146,13 @@ class access_logic {
 		}else
 		{
 			$acount = new account();
-			echo $add_acount = $acount->Add($acountName,$acountDesc,$parentId,$acountTypeId,$userid_caller);
+			if($isType==""){
+				
+				echo $add_acount = $acount->Add($acountName,$acountDesc,$parentId,$acountTypeId,$userid_caller,$acountTypeId);
+				
+			}
+			else
+			echo $add_acount = $acount->Add($acountName,$acountDesc,$parentId,$acountTypeId,$userid_caller,$isType);
 		}
 	}
 	
@@ -247,12 +238,197 @@ class access_logic {
 	
 	
 	public function GetGeneralJournal($userid_caller,$appID,$cond){
-        $trans = new transaction_general_general();
+       
+	   $trans = new transaction_general_general();
         $output = new Output();
 		
         $res = $trans->Select($cond);
         return $output->ReturnOutputV($res);
     }
+	
+	public function incomeStatement($id){
+		$acount = new account();
+		$total_revenue = "";
+		$total_expense = "";
+		$new_debt="";
+		$new_cred = "";
+		$rev_cond = "WHERE User_id='".$id."' AND Chart_id=5 AND Is_type=5";
+		$val = $acount->Select($rev_cond);
+		$exp_cond = "WHERE User_id='".$id."' AND Chart_id=2 AND Is_type=2";
+		$exp = $acount->Select($exp_cond);
+		$rev = $this->get_revenue($val);
+		$data['all_data_rev'] = $rev;
+		//print_r($rev);
+		//print_r($exp);
+		
+		$tot_exp = $this->get_expense($exp);
+		$data['all_data_exp'] = $tot_exp;
+		
+		$data['all_total'] = $rev['total']-$tot_exp['total'];
+		return $data;
+		
+		
+		
+		
+		
+		
+	}
+	
+	
+	
+	public function get_revenue($rev_n){
+		
+		$Type = new type();
+		$trans  = new transaction_general_general();
+		$Transaction = new transaction();
+		$rev_num = count($rev_n['rows']);
+		$new_debt="";
+		$new_cred = "";
+		$group = 1;
+		if($rev_num>0)
+		{
+			$rev['Group'] =  "<h1>Revenue Group</h1>";
+			foreach($rev_n['rows'] as $val):
+				$res = $Type->Select($val['Is_type']);
+				$rev['type_name'] =  "<h3>Acount Name = ".$val['Name']."</h3>";	
+
+				foreach($res['rows'] as $tp):
+						
+						$rev['Group_name'] =  "<h4>Group No:".$group." ".$tp['Type_name']."</h4>";	
+						$where_gen = "WHERE Account_id='".$val['Id']."'";
+						$res = $trans->Select($where_gen);
+					//echo "<tr>";
+					foreach($res['rows'] as $vv):
+								$where_trans_id = "WHERE Id='".$vv['Transaction_id']."'";
+								$res = $Transaction->Select($where_trans_id);
+								if($vv['Debit']!=0){
+								$rev['list_debit'] =  "<li>Debit    -------- ".$vv['Debit']."</li>";
+								$new_debt +=  $vv['Debit'];
+								}
+								if($vv['Credit']!=0){
+								$rev['list_credit'] = "<li>Credit   -------- ".$vv['Credit']."</li>";
+								$new_cred +=  $vv['Credit'];}
+					endforeach;	
+				endforeach;			
+				
+				
+				$rev['total_debit'] =  "<li>Total Debit = ".$rev['debit'] = $new_debt."</li>";
+				$rev['total_credit'] =  "<li>Total Credit = ".$rev['credit'] = $new_cred."</li>";
+				
+				$rev['result'] =  "<li>Result = ".$rev['total'] =  $new_debt-$new_cred."</li>";
+			$group++;	
+			endforeach;
+			
+			return $rev;
+			
+		
+		}
+		
+	}
+	
+	public function get_expense($exp){
+		
+		$Type = new type();
+		$trans  = new transaction_general_general();
+		$Transaction = new transaction();
+		$group = 1;
+		$new_debt="";
+		$new_cred = "";
+		$exp_num = count($exp['rows']);
+		if($exp_num>0)
+		{
+			$exp['Group'] =  "<h1>Expense Group</h1>";
+			foreach($exp['rows'] as $val):
+				$res = $Type->Select($val['Is_type']);
+				$exp['type_name_exp'] = "<h3>Acount Name = ".$val['Name']."</h3>";	
+
+				foreach($res['rows'] as $tp):
+						
+						$exp['Group_name'] = "<h4>Group No:".$group." ".$tp['Type_name']."</h4>";	
+						$where_gen = "WHERE Account_id='".$val['Id']."'";
+						$res = $trans->Select($where_gen);
+					
+					foreach($res['rows'] as $vv):
+					
+								$where_trans_id = "WHERE Id='".$vv['Transaction_id']."'";
+								$res = $Transaction->Select($where_trans_id);
+					endforeach;	
+						if($vv['Debit']!=0){
+							$exp['list_debit_exp'] = "<li>Debit ------- ".$vv['Debit']."</li>";
+							$new_debt +=  $vv['Debit'];
+						
+						}
+						if($vv['Credit']!=0){
+							$exp['list_credit'] = "<li>Credit ------ ".$vv['Credit']."</li>";
+							$new_cred +=  $vv['Credit'];
+						
+						}
+						
+				endforeach;			
+				
+				if($new_debt==""){
+					$new_debt = 0;
+				}
+				$exp['total_debit_exp'] = "<li>Total Debit = ".$exp['debit'] = $new_debt."</li>";
+				$exp['total_credit_exp'] = "<li>Total Credit = ".$exp['credit'] = $new_cred."</li>";
+				$exp['result_exp'] = "<li>Result = ".$exp['total'] =  $new_debt-$new_cred."</li>";
+				$group++;
+			endforeach;
+			
+			
+			
+		
+			
+			return $exp;
+		
+		}
+			
+	}
+	
+	
+	public function selectType($userid_caller,$appID,$condition=false){
+		
+		$Output = new Output();
+		$Users = new users();
+		$Type = new type();
+		
+		$login = $this->loginUser($userid_caller, $appID);
+		if(!$login){
+			
+			$result['msg'] = 'Invalid App Key';
+			$result['err'] = true;
+			return $result;
+		
+		}else
+		
+		{
+			$res = $Type->Select($condition);
+			return $res;
+		
+		}
+	}
+	
+	public function Add($userid_caller,$appID,$type_dec,$type_name){
+		
+		$Output = new Output();
+		$Users = new users();
+		$Type = new type();
+		
+		$login = $this->loginUser($userid_caller, $appID);
+		if(!$login){
+			
+			$result['msg'] = 'Invalid App Key';
+			$result['err'] = true;
+			return $result;
+		
+		}else
+		
+		{
+			$res = $Type->Add($type_dec,$type_name);
+			return $res;
+		
+		}
+	}
 	
 	
 }
