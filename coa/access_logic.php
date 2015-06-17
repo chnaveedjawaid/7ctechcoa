@@ -18,7 +18,7 @@ class access_logic {
 	
 	
 	
-	public function call($key,$class,$function,$para=false)
+	public function call($class,$function,$para=false)
 	{
 		
 			
