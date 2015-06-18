@@ -5,6 +5,14 @@ require("acces_classes.php");
 require("dal/classes.php");
 require("dal/Employee_payment.php");
 require("dal/employ_salary_details.php");
+require("dal/expences.php");
+require("dal/teachers_teaching_subjects.php");
+require("dal/teachers_for_classes.php");
+
+
+
+
+
 //require("dal/chart.php");
 //require("dal/transaction.php");
 //require("dal/transaction_general_general.php");
