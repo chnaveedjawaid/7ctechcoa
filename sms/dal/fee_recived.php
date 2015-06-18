@@ -17,8 +17,8 @@ class fee_recived {
             $sql = "SELECT * FROM ".$this->TableName;
         } else
         {	
-		   $where = "WHERE Fee_id = ".$cond;		
-		   $sql = "SELECT * FROM ". $this->TableName." ".$where;
+		  	
+		   $sql = "SELECT * FROM ". $this->TableName." ".$cond;
         }
         try{
             $query = $db->prepare($sql);
@@ -36,7 +36,7 @@ class fee_recived {
 	// @Parameter $field_name  Specific column  
 	// @Parameter Where condtion fee_concession id 
 	
-	public function SelectField($fieldName,$cond_id)
+	public function SelectField($fieldName,$cond)
 	
     {
 		global $db;
@@ -45,8 +45,8 @@ class fee_recived {
             $sql = "SELECT * FROM ".$this->TableName;
         } else
         {
-		   $WHERE = "WHERE Fee_id = ".$cond_id; 	 	
-           $sql = "SELECT ".$fieldName." FROM ". $this->TableName." ".$WHERE;
+		    	 	
+           $sql = "SELECT ".$fieldName." FROM ". $this->TableName." ".$cond;
         }
         try{
             $query = $db->prepare($sql);
@@ -85,7 +85,7 @@ class fee_recived {
     // @Parameter Expense name  
     // @Parameter Expense descryption  
     // @Parameter Expense acount id 
-    public function Update($Fee_id ,$Student_Id=false, $Recived_Amount=false)
+    public function Update($Student_Id=false, $Recived_Amount=false,$where)
     {	
 		
         global $db;
@@ -106,7 +106,7 @@ class fee_recived {
        
         
         try{
-            $Sql .= " WHERE Fee_id=".$Fee_id; 
+            $Sql .= " ".$where; 
             $query = $db->prepare($Sql);
             $query->execute();
             return true;
@@ -118,10 +118,10 @@ class fee_recived {
     
     //DELETE SPECIFIC fee_concession
     //@Parameter fee_concession ID For Specific fee_concession table
-    public function Delete($Fee_ID)
+    public function Delete($Where)
     {
         global $db;
-        $Sql = "DELETE FROM ".$this->TableName ." WHERE Fee_ID =".$Fee_ID;
+        $Sql = "DELETE FROM ".$this->TableName ." ".$Where;
         try
         {
             $query = $db->prepare($Sql);
