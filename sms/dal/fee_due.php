@@ -7,7 +7,7 @@ class fee_due {
     // GET fee_concession
 	// Author Naveed 
     // @Parameter Where condtion Fee Id
-    
+    ///////
 	public function Select($cond=false)
 	
     {
@@ -122,10 +122,10 @@ class fee_due {
     
     //DELETE SPECIFIC fee_concession
     //@Parameter fee_concession ID For Specific fee_concession table
-    public function Delete($Fee_ID)
+    public function Delete($Where)
     {
         global $db;
-        $Sql = "DELETE FROM ".$this->TableName ." WHERE Fee_ID =".$Fee_ID;
+        $Sql = "DELETE FROM ".$this->TableName ." ".$Where;
         try
         {
             $query = $db->prepare($Sql);
