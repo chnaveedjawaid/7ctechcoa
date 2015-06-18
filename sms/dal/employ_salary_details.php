@@ -17,8 +17,8 @@ class employ_salary_details {
             $sql = "SELECT * FROM ".$this->TableName;
         } else
         {	
-		   $where = "WHERE employ_id = ".$cond;		
-		   $sql = "SELECT * FROM ". $this->TableName." ".$where;
+		  	
+		   $sql = "SELECT * FROM ". $this->TableName." ".$cond;
         }
         try{
             $query = $db->prepare($sql);
@@ -40,13 +40,13 @@ class employ_salary_details {
 	
     {
 		global $db;
-        if($fieldName=="")
+        if($fieldName=="" && $cond_id="")
         {
             $sql = "SELECT * FROM ".$this->TableName;
         } else
         {
-		   $WHERE = "WHERE employ_id=".$cond_id; 	 	
-           $sql = "SELECT ".$fieldName." FROM ". $this->TableName." ".$WHERE;
+		 	
+           $sql = "SELECT ".$fieldName." FROM ". $this->TableName." ".$cond_id;
         }
         try{
             $query = $db->prepare($sql);
@@ -84,28 +84,26 @@ class employ_salary_details {
     // @Parameter $employee id  
     // @Parameter $salary  
     // @Parameter $account_id  
-    public function Update($employ_id ,$salary, $account_id=false)
+    public function Update($employ_id=false ,$salary=false, $Where=false)
     {	
 		
         global $db;
         $salary = trim($salary);
-        $account_id = trim($account_id);
         $employ_id = trim($employ_id);
        
         
         $Sql = "UPDATE ".$this->TableName." SET ";
         
         if ($salary != "") {
-            $Sql .= " Salary = ".$salary."";
+            $Sql .= " salary = ".$salary."";
+        }
+		if ($employ_id != "") {
+            $Sql .= " employ_id = ".$employ_id."";
         }
 	
-        if ($account_id != "") {
-            
-                $Sql .=" , account_id = '".$account_id."'";
-            
-        }
+       
        try{
-            $Sql .= " WHERE employ_id=".$employ_id; 
+            $Sql .= $Where; 
             $query = $db->prepare($Sql);
             $query->execute();
             return true;
@@ -117,10 +115,10 @@ class employ_salary_details {
     
     //DELETE SPECIFIC Emplyee salary detail
     //@Parameter Employee_id 
-    public function Delete($Employee_id)
+    public function Delete($Where)
     {
         global $db;
-        $Sql = "DELETE FROM ".$this->TableName ." WHERE employ_id =".$Employee_id;
+        $Sql = "DELETE FROM ".$this->TableName .$Where;
         try
         {
             $query = $db->prepare($Sql);
