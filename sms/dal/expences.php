@@ -17,8 +17,8 @@ class expences {
             $sql = "SELECT * FROM ".$this->TableName;
         } else
         {	
-		   $where = "WHERE exp_id = ".$cond;		
-		   $sql = "SELECT * FROM ". $this->TableName." ".$where;
+		  	
+		   $sql = "SELECT * FROM ". $this->TableName." ".$cond;
         }
         try{
             $query = $db->prepare($sql);
@@ -36,17 +36,17 @@ class expences {
 	// @Parameter $field_name  Specific column  
 	// @Parameter Where condtion expences id 
 	
-	public function SelectField($fieldName,$cond_id)
+	public function SelectField($fieldName,$cond)
 	
     {
 		global $db;
-        if($fieldName=="")
+        if($cond=="")
         {
             $sql = "SELECT * FROM ".$this->TableName;
         } else
         {
-		   $WHERE = "WHERE exp_id=".$cond_id; 	 	
-           $sql = "SELECT ".$fieldName." FROM ". $this->TableName." ".$WHERE;
+		   	 	
+           $sql = "SELECT ".$fieldName." FROM ". $this->TableName." ".$cond;
         }
         try{
             $query = $db->prepare($sql);
@@ -85,7 +85,7 @@ class expences {
     // @Parameter Expense name  
     // @Parameter Expense descryption  
     // @Parameter Expense acount id 
-    public function Update($exp_id ,$exp_name=false, $exp_discription=false,$account_id=false)
+    public function Update($exp_name=false, $exp_discription=false,$account_id=false,$where)
     {	
 		
         global $db;
@@ -113,7 +113,7 @@ class expences {
        
         
         try{
-            echo $Sql .= " WHERE exp_id=".$exp_id; 
+            echo $Sql .= " ".$where; 
             $query = $db->prepare($Sql);
             $query->execute();
             return true;
@@ -125,10 +125,10 @@ class expences {
     
     //DELETE SPECIFIC expences
     //@Parameter expences ID For Specific expences table
-    public function Delete($exp_id)
+    public function Delete($where)
     {
         global $db;
-        $Sql = "DELETE FROM ".$this->TableName ." WHERE exp_id =".$exp_id;
+        $Sql = "DELETE FROM ".$this->TableName ." ".$where;
         try
         {
             $query = $db->prepare($Sql);
