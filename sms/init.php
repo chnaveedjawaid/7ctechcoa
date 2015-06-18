@@ -8,7 +8,7 @@ require("dal/employ_salary_details.php");
 require("dal/expences.php");
 require("dal/teachers_teaching_subjects.php");
 require("dal/teachers_for_classes.php");
-
+require("dal/subjects.php");
 
 
 
