@@ -39,13 +39,13 @@ class classes {
 	
     {
 		global $db;
-        if($fieldName=="")
+        if($fieldName=="" && cond_id=="")
         {
             $sql = "SELECT * FROM ".$this->TableName;
         } else
         {
-		   $WHERE = "WHERE class_id=".$cond_id; 	 	
-           echo $sql = "SELECT ".$fieldName." FROM ". $this->TableName." ".$WHERE;
+		 	 	
+           $sql = "SELECT ".$fieldName." FROM ". $this->TableName." ".$cond_id;
         }
         try{
             $query = $db->prepare($sql);
@@ -85,7 +85,7 @@ class classes {
     // @Parameter $class Status  
     // @Parameter $Class Description  
     // @Parameter $Section Shift  
-    public function Update($ClassId ,$ClassName=false, $ClassStatus=false, $ClassDescription=false, $Section_Shift=false)
+    public function Update($ClassName=false, $ClassStatus=false, $ClassDescription=false, $Section_Shift=false,$WHERE=false)
     {	
 		
 		
@@ -93,8 +93,7 @@ class classes {
         $ClassName = trim($ClassName);
         $ClassStatus = trim($ClassStatus);
         $ClassDescription = trim($ClassDescription);
-        $ClassId = trim($ClassId);
-        $Section_Shift = trim($Section_Shift);
+       $Section_Shift = trim($Section_Shift);
         
         $Sql = "UPDATE ".$this->TableName." SET ";
         
@@ -127,7 +126,7 @@ class classes {
         }
         
         try{
-            $Sql .= " WHERE class_id=".$ClassId; 
+            echo $Sql .= $WHERE; 
             $query = $db->prepare($Sql);
             $query->execute();
             return true;
@@ -139,10 +138,10 @@ class classes {
     
     //DELETE SPECIFIC ClASS
     //@Parameter CLASS ID For Specific CLASS
-    public function DeleteClass($ClassID)
+    public function DeleteClass($WHERE)
     {
         global $db;
-        $Sql = "DELETE FROM ".$this->TableName ." WHERE Class_id =".$ClassID;
+        $Sql = "DELETE FROM ".$this->TableName ." ".$WHERE;
         try
         {
             $query = $db->prepare($Sql);
