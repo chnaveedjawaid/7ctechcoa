@@ -1,0 +1,138 @@
+<?php 
+
+class student_in_class {
+    
+    public  $TableName = "student_in_class";
+    
+    // GET student_in_class
+	// Author Naveed 
+    // @Parameter Where condtion 
+    
+	public function Select($cond=false)
+	
+    {
+		global $db;
+        if(isset($cond) && $cond=="")
+        {
+            $sql = "SELECT * FROM ".$this->TableName;
+        } else
+        {	
+		   		
+		   $sql = "SELECT * FROM ". $this->TableName." ".$cond;
+        }
+        try{
+            $query = $db->prepare($sql);
+            $query->execute();
+            $arr['rows'] = $query->fetchAll(PDO::FETCH_ASSOC);
+            $arr['err'] = false;
+        } catch(PDOException $e){
+            $arr['err'] = true;
+            $arr['msg'] = $e->getMessage();            
+        } 
+        return $arr;
+    }
+	
+	// GET SPECIFIC FIELD fee_concession
+	// @Parameter $field_name  Specific column  
+	// @Parameter Where condtion fee_concession id 
+	
+	public function SelectField($fieldName,$cond_id)
+	
+    {
+		global $db;
+        if($cond_id=="")
+        {
+            $sql = "SELECT * FROM ".$this->TableName;
+        } else
+        {
+		  	 	
+           $sql = "SELECT ".$fieldName." FROM ". $this->TableName." ".$cond_id;
+        }
+        try{
+            $query = $db->prepare($sql);
+            $query->execute();
+            $arr['rows'] = $query->fetchAll(PDO::FETCH_ASSOC);
+            $arr['err'] = false;
+        } catch(PDOException $e){
+            $arr['err'] = true;
+            $arr['msg'] = $e->getMessage();            
+        } 
+        return $arr;
+    }
+	
+	
+    
+    // INSERT VALUES IN fee_concession  TABLE
+    // @Parameter Expense name
+    // @Parameter Expense Description	
+    // @Parameter Acount id
+    public function Insert($Student_Id,$Class_Id)
+    {
+		
+        global $db;
+		$Sql = 'INSERT INTO '.$this->TableName.' (Student_Id , Class_Id)
+		VALUES ('.$Student_Id.','.$Class_Id.')';
+        try{
+            $query = $db->prepare($Sql);
+            $query->execute();
+            return true;
+        } catch(PDOException $e){
+            return $e->getMessage();
+        }
+    }
+    
+    // UPDATE fee_concession
+    // @Parameter Expense id  
+    // @Parameter Expense name  
+    // @Parameter Expense descryption  
+    // @Parameter Expense acount id 
+    public function Update($Student_Id=false, $Class_Id=false,$where)
+    {	
+		
+        global $db;
+       
+        
+        $Sql = "UPDATE ".$this->TableName." SET ";
+        
+        if ($Student_Id != "") {
+            $Sql .= " Student_Id = '".$Student_Id."'";
+        }
+	
+        
+        if ($Class_Id != "") {
+          
+                $Sql .= " , Class_Id = '".$Class_Id."'";
+          
+        }
+       
+        
+        try{
+            $Sql .= " ".$where; 
+            $query = $db->prepare($Sql);
+            $query->execute();
+            return true;
+        } catch(PDOException $e){
+            return $e->getMessage();
+        }
+        
+    }
+    
+    //DELETE SPECIFIC fee_concession
+    //@Parameter fee_concession ID For Specific fee_concession table
+    public function Delete($Where)
+    {
+        global $db;
+        $Sql = "DELETE FROM ".$this->TableName ." ".$Where;
+        try
+        {
+            $query = $db->prepare($Sql);
+            $query->execute();
+            return true;
+        } catch(PDOException $e){
+            return $e->getMessage();                    
+        }
+    }
+	
+	
+
+} 
