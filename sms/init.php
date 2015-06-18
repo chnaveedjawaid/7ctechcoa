@@ -9,12 +9,15 @@ require("dal/expences.php");
 require("dal/teachers_teaching_subjects.php");
 require("dal/teachers_for_classes.php");
 require("dal/subjects.php");
+require("dal/student_in_class.php");
+require("dal/staff.php");
+require("dal/section_shift.php");
+require("dal/school.php");
+require("dal/student.php");
 
 
 
 
-//require("dal/chart.php");
-//require("dal/transaction.php");
 //require("dal/transaction_general_general.php");
 //require("dal/transaction_transaction_type.php");
 //require("dal/traceability.php");
