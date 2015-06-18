@@ -17,8 +17,8 @@ class fee_due {
             $sql = "SELECT * FROM ".$this->TableName;
         } else
         {	
-		   $where = "WHERE Fee_id = ".$cond;		
-		   $sql = "SELECT * FROM ". $this->TableName." ".$where;
+		  		
+		   $sql = "SELECT * FROM ". $this->TableName." ".$cond;
         }
         try{
             $query = $db->prepare($sql);
@@ -36,7 +36,7 @@ class fee_due {
 	// @Parameter $field_name  Specific column  
 	// @Parameter Where condtion fee_concession id 
 	
-	public function SelectField($fieldName,$cond_id)
+	public function SelectField($fieldName,$cond)
 	
     {
 		global $db;
@@ -45,8 +45,8 @@ class fee_due {
             $sql = "SELECT * FROM ".$this->TableName;
         } else
         {
-		   $WHERE = "WHERE Fee_id = ".$cond_id; 	 	
-           $sql = "SELECT ".$fieldName." FROM ". $this->TableName." ".$WHERE;
+		    	
+           $sql = "SELECT ".$fieldName." FROM ". $this->TableName." ".$cond;
         }
         try{
             $query = $db->prepare($sql);
@@ -85,7 +85,7 @@ class fee_due {
     // @Parameter Expense name  
     // @Parameter Expense descryption  
     // @Parameter Expense acount id 
-    public function Update($Fee_id ,$Student_Id=false, $Status_Id=false,$account_id=false)
+    public function Update($Where ,$Student_Id=false, $Status_Id=false,$account_id=false)
     {	
 		
         global $db;
@@ -110,7 +110,7 @@ class fee_due {
        
         
         try{
-            $Sql .= " WHERE Fee_id=".$Fee_id; 
+            $Sql .= " ".$Where; 
             $query = $db->prepare($Sql);
             $query->execute();
             return true;
