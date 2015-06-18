@@ -17,8 +17,8 @@ class Employee_payment {
             $sql = "SELECT * FROM ".$this->TableName;
         } else
         {	
-		   $where = "WHERE employ_id = ".$cond;		
-		   $sql = "SELECT * FROM ". $this->TableName." ".$where;
+		  	
+		   $sql = "SELECT * FROM ". $this->TableName." ".$cond;
         }
         try{
             $query = $db->prepare($sql);
@@ -45,8 +45,8 @@ class Employee_payment {
             $sql = "SELECT * FROM ".$this->TableName;
         } else
         {
-		   $WHERE = "WHERE employ_id=".$cond_id; 	 	
-           $sql = "SELECT ".$fieldName." FROM ". $this->TableName." ".$WHERE;
+		 	
+           $sql = "SELECT ".$fieldName." FROM ". $this->TableName." ".$cond_id;
         }
         try{
             $query = $db->prepare($sql);
@@ -86,7 +86,7 @@ class Employee_payment {
     // @Parameter $class Status  
     // @Parameter $Class Description  
     // @Parameter $Section Shift  
-    public function Update($employ_id ,$extra_alounce_amount, $alownce_descryption=false, $tottal_amount_paied=false)
+    public function Update($extra_alounce_amount, $alownce_descryption=false, $tottal_amount_paied=false,$where)
     {	
 		
         global $db;
@@ -121,7 +121,7 @@ class Employee_payment {
        
         
         try{
-            $Sql .= " WHERE employ_id=".$employ_id; 
+            $Sql .= $where; 
             $query = $db->prepare($Sql);
             $query->execute();
             return true;
@@ -133,10 +133,10 @@ class Employee_payment {
     
     //DELETE SPECIFIC ClASS
     //@Parameter CLASS ID For Specific CLASS
-    public function DeleteEmployeePayment($Employee_id)
+    public function DeleteEmployeePayment($WHERE)
     {
         global $db;
-        $Sql = "DELETE FROM ".$this->TableName ." WHERE employ_id =".$Employee_id;
+        $Sql = "DELETE FROM ".$this->TableName ." ".$WHERE;
         try
         {
             $query = $db->prepare($Sql);
