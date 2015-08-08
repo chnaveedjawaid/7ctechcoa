@@ -1,0 +1,1 @@
+{ "1": "Pakistan study" , "2": "English" , "3":"Sindhi" , "4":"Urdu" , "5":"Islamiat"}

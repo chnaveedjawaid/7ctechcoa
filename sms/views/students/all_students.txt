@@ -1,0 +1,4 @@
+[ {"name":"naveed1", "id": "2" , "class": "8th" , "shift" : "first" , "contact" : "0213-5435368"}, 
+  {"name":"naveed2", "id": "123" , "class": "8th" , "shift" : "first" , "contact" : "0213-5435368"},
+  {"name":"naveed3", "id": "2" , "class": "8th" , "shift" : "first" , "contact" : "0213-5435368"}  
+]

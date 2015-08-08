@@ -1,0 +1,1 @@
+{ "1": "primary - 1st clsss" , "2": "secondary-first class" , "3":"matriculation-2nd class" , "4":"matriculation-3rd class" , "5":"matriculation - 4th class"}

@@ -1,0 +1,7 @@
+{ "Full_Name1":"Zeeshan Ahmed-123" ,
+  "Full_Name2":"abdul hakeem-2" , 
+  "Full_Name3":"bilal-3" ,
+  "Full_Name4":"bashir-4" ,
+  "Full_Name5":"naveed-5", 
+  "staff_type":"old"		
+}
