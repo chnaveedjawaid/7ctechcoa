@@ -432,7 +432,7 @@
 							<div class="row">
 								<div class="col-sm-8">
 									<h1 class="mainTitle">Student Data Information</h1>
-									<span class="mainDescription">We set out to create an easy, powerful and versatile form layout system. A combination of form styles and the Bootstrap grid means you can do almost anything.</span>
+									<span class="mainDescription">Student Data.</span>
 								</div>
 							</div>
 						</section>

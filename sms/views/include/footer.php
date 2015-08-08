@@ -16,12 +16,7 @@
 		<script src="vendor/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
 		<script src="vendor/bootstrap-timepicker/bootstrap-timepicker.min.js"></script>
 		<!-- end: JAVASCRIPTS REQUIRED FOR THIS PAGE ONLY -->
-		<!-- start: CLIP-TWO JAVASCRIPTS -->
-		<script src="assets/js/main.js"></script>
-		<script src="assets/js/ang.js"></script>
-		<!-- start: JavaScript Event Handlers for this page -->
-		<script src="assets/js/form-elements.js"></script>
-		<script>
+	<script>
 			jQuery(document).ready(function() {
 				//Main.init();
 				//FormElements.init();
@@ -31,7 +26,7 @@
 	var prevGroup, $group = $();
 	$('#select_test option').remove().each(function() {
     var $option = $(this),
-        values = $option.text().split('-'),
+        values = $option .text().split('-'),
 		
         group = values[0];
     alert($option.text());
@@ -55,7 +50,6 @@
 			
 	
 		</script>
-		<!-- end: JavaScript Event Handlers for this page -->
 		<!-- end: CLIP-TWO JAVASCRIPTS -->
 	</body>
 </html>

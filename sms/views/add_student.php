@@ -19,7 +19,7 @@ include("include/header.php");
 							<div class="row">
 								<div class="col-sm-8">
 									<h1 class="mainTitle">Add Student</h1>
-									<span class="mainDescription">We set out to create an easy, powerful and versatile form layout system. A combination of form styles and the Bootstrap grid means you can do almost anything.</span>
+									<span class="mainDescription">form information text.</span>
 								</div>
 							</div>
 						</section>
@@ -104,7 +104,7 @@ include("include/header.php");
                                                                         <label for="exampleInputClass">
                                                                             Class
                                                                         </label>
-                                                                        <select name="classes" id="classes" class="cs-select cs-skin-elastic">
+                                                                        <select name="student_classes" id="student_classes" class="cs-select cs-skin-elastic">
                                                                             <option value="select">Select</option>
                                                                         </select>
                                                                     </div>
@@ -112,10 +112,8 @@ include("include/header.php");
                                                                         <label for="exampleInputStatus">
                                                                             Status
                                                                         </label>
-                                                                        <select name="status" class="cs-select cs-skin-elastic">
-                                                                            <option value="Active">Active</option>
-                                                                            <option value="Pending">Pending</option>
-                                                                            <option value="Deactive">Deactive</option>
+                                                                        <select name="student_status"  id="student_status"   class="cs-select cs-skin-elastic">
+                                                                          <option value="select">Select</option>
                                                                         </select>
                                                                     </div>
                                                             	</div>
@@ -638,9 +636,24 @@ include("include/header.php");
 				</div>
 			</div>
 			<!-- end: OFF-SIDEBAR -->
-			
-		</div>
-		<?php
+                        <?php
 		include('include/footer.php');
 		
 		?>
+                        <!-- essential js for this page -->
+                        	<!-- start: CLIP-TWO JAVASCRIPTS -->
+		<script src="assets/js/main.js"></script>
+		<script src="assets/js/ng_addstudent.js"></script>
+		<!-- start: JavaScript Event Handlers for this page -->
+		<script src="assets/js/form-elements.js"></script>
+	
+			
+			
+			
+			
+	
+		</script>
+		<!-- end: JavaScript Event Handlers for this page -->
+                    
+		</div>
+		
