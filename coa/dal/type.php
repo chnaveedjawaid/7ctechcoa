@@ -1,4 +1,4 @@
-<?php require '../config/db.php';
+<?php require (dirname(__DIR__).'/config/db.php');
 
 class type {
     public $TableName = "type";
@@ -11,7 +11,9 @@ class type {
     // GET A SPECIFIC Type OR ALL Type
     // @Parameter $condition 
     public function Select($condition){
-        $Sql = "SELECT * FROM ".$this->TableName." ".$Condtion;
+        
+        global $db;
+        $Sql = "SELECT * FROM ".$this->TableName." ".$condition;
         try
         {
             $query = $db->prepare($Sql);

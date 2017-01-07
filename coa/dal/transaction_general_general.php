@@ -1,4 +1,4 @@
-<?php require '../config/db.php';
+<?php require (dirname(__DIR__).'/config/db.php');;
 
 class transaction_general_general {
     public $TableName = "transaction_general_general";
@@ -11,7 +11,8 @@ class transaction_general_general {
     // GET A SPECIFIC Transaction GG OR ALL Transaction GG
     // @Parameter $condition 
     public function Select($condition){
-        $Sql = "SELECT * FROM ".$this->TableName." ".$Condtion;
+        global $db;
+        $Sql = "SELECT * FROM ".$this->TableName." ".$condition;
         try
         {
             $query = $db->prepare($Sql);

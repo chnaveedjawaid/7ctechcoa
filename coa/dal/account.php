@@ -1,5 +1,6 @@
-<?php require '../config/db.php';
-
+<?php require (dirname(__DIR__).'/config/db.php');
+//require(dirname(__DIR__).'/Output.php');
+///////////COPIED DB.PHP IN THE MAIN FOLDER FROM THE CONFIG FOLDER FOR THE SAKE OF TESTING AND STRATRTING TO WORK AGAIN PLEASE FIX THIS ASAP
 class account {
     
     public  $TableName = "account";

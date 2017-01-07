@@ -24,7 +24,7 @@ class access_logic {
 			
 			$new_class = new $class();
 			
-			$res = $new_class->$function(...$para);
+			$res = $new_class->$function($para);
 			
 			return json_encode($res);
 			
@@ -254,6 +254,7 @@ class access_logic {
 		$new_cred = "";
 		$rev_cond = "WHERE User_id='".$id."' AND Chart_id=5 AND Is_type=5";
 		$val = $acount->Select($rev_cond);
+                
 		$exp_cond = "WHERE User_id='".$id."' AND Chart_id=2 AND Is_type=2";
 		$exp = $acount->Select($exp_cond);
 		$rev = $this->get_revenue($val);
@@ -281,22 +282,26 @@ class access_logic {
 		$Type = new type();
 		$trans  = new transaction_general_general();
 		$Transaction = new transaction();
+                $Account =  new account();
 		$rev_num = count($rev_n['rows']);
 		$new_debt="";
 		$new_cred = "";
 		$group = 1;
+                print_r($rev_n['rows']);
 		if($rev_num>0)
 		{
 			$rev['Group'] =  "<h1>Revenue Group</h1>";
 			foreach($rev_n['rows'] as $val):
-				$res = $Type->Select($val['Is_type']);
+                          
+				$res = $Account->Select("where (is_type = ".$val['Is_type'].")");
 				$rev['type_name'] =  "<h3>Acount Name = ".$val['Name']."</h3>";	
-
+                                print_r($res);
 				foreach($res['rows'] as $tp):
 						
-						$rev['Group_name'] =  "<h4>Group No:".$group." ".$tp['Type_name']."</h4>";	
+						//$rev['Group_name'] =  "<h4>Group No:".$group." ".$tp['Type_name']."</h4>";	
 						$where_gen = "WHERE Account_id='".$val['Id']."'";
 						$res = $trans->Select($where_gen);
+                                               print_r($res);
 					//echo "<tr>";
 					foreach($res['rows'] as $vv):
 								$where_trans_id = "WHERE Id='".$vv['Transaction_id']."'";
@@ -332,6 +337,7 @@ class access_logic {
 		$trans  = new transaction_general_general();
 		$Transaction = new transaction();
 		$group = 1;
+                $Account =  new account();
 		$new_debt="";
 		$new_cred = "";
 		$exp_num = count($exp['rows']);
@@ -339,12 +345,12 @@ class access_logic {
 		{
 			$exp['Group'] =  "<h1>Expense Group</h1>";
 			foreach($exp['rows'] as $val):
-				$res = $Type->Select($val['Is_type']);
+				$res = $Account->Select("where (is_type = ".$val['Is_type'].")");
 				$exp['type_name_exp'] = "<h3>Acount Name = ".$val['Name']."</h3>";	
 
 				foreach($res['rows'] as $tp):
 						
-						$exp['Group_name'] = "<h4>Group No:".$group." ".$tp['Type_name']."</h4>";	
+						//$exp['Group_name'] = "<h4>Group No:".$group." ".$tp['Type_name']."</h4>";	
 						$where_gen = "WHERE Account_id='".$val['Id']."'";
 						$res = $trans->Select($where_gen);
 					

@@ -1,4 +1,4 @@
-<?php require 'config/db.php';
+<?php require (dirname(__DIR__).'/config/db.php');
 
 class post_transaction {
     public $TableName = "traceability";
