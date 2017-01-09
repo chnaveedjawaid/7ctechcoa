@@ -1,6 +1,5 @@
 <?php 
-require (dirname(__DIR__).'/config/db.php');;
-
+require (dirname(__DIR__).'/config/db.php');
 class transaction_general_general {
     public $TableName = "transaction_general_general";
     
@@ -11,10 +10,8 @@ class transaction_general_general {
     
     // GET A SPECIFIC Transaction GG OR ALL Transaction GG
     // @Parameter $condition 
-    public function Select($parm){
-		$condition = $parm["condition"];
-        global $db;
-        $Sql = "SELECT * FROM ".$this->TableName." ".$condition;
+    public function Select($condition){
+        $Sql = "SELECT * FROM ".$this->TableName." ".$Condtion;
         try
         {
             $query = $db->prepare($Sql);
@@ -58,16 +55,13 @@ class transaction_general_general {
     // @Parameter $TransactionSubAccountId
     // @Parameter $TransactionDebit
     // @Parameter $TransactionCredit
-    public function Add($parm){ 
-		$TransactionId = $parm["TransactionId"];
-		$TransactionSubAccountId = $parm["TransactionSubAccountId"];
-		$TransactionDebit = $parm["TransactionDebit"];
-		$TransactionCredit = $parm["TransactionCredit"];     
+    public function Add($TransactionId,$TransactionSubAccountId, $TransactionDebit, $TransactionCredit){        
         global $db;
         try
         {
             $Sql  = 'INSERT INTO '.$this->TableName.'(Transaction_id,Account_id, Debit, Credit)';
             $Sql .= 'VALUES("'.$TransactionId.'","'.$TransactionSubAccountId.'","'.$TransactionDebit.'","'.$TransactionCredit.'")';
+            
             $query = $db->prepare($Sql);
             $query->execute();
             return true;            
@@ -82,11 +76,7 @@ class transaction_general_general {
     // @Parameter $TransactionDebit
     // @Parameter $TransactionCredit
     // @Parameter $TransactionId
-    public function Update($parm){
-		$TransactionSubAccountId = $parm["TransactionSubAccountId"];
-		$TransactionDebit = $parm["TransactionDebit"];
-		$TransactionCredit = $parm["TransactionCredit"];
-		$TransactionId = $parm["TransactionId"];
+    public function Update($TransactionSubAccountId, $TransactionDebit, $TransactionCredit, $TransactionId){
         global $db;
         $TransactionSubAccountId = trim($TransactionSubAccountId);
         $TransactionDebit = trim($TransactionDebit);
@@ -122,8 +112,8 @@ class transaction_general_general {
     
     //DELETE TRANSACTION
     //@Parameter $TransactionId
-    public function Delete_record($parm){
-		$TransactionId = $parm["TransactionId"];
+    public function Delete_record($TransactionId)
+    {
         global $db;
         try {
              $Sql = "DELETE FROM ".$this->TableName." WHERE Transaction_id =".$TransactionId;

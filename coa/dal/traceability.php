@@ -1,15 +1,13 @@
 <?php 
-require (dirname(__DIR__).'/config/db.php');;
-
+require (dirname(__DIR__).'/config/db.php');
 class traceability {
 
     public $TableName = "traceability";
     
     // GET A SPECIFIC Traceability OR ALL Traceability
     // @Parameter $Condition 
-    public function Select($parm)
+    public function Select($Condition)
     {
-		$Condition = $parm["Condition"];
         global $db;
         
         if ($Condition == "") {
@@ -38,13 +36,8 @@ class traceability {
     // @Parameter $TraceabilityDate
     // @Parameter $TraceabilityTime
     // @Parameter $TraceabilityActivityType
-    public function Add($parm)
+    public function Add($TraceabilityEntityType, $TraceabilityEntityName, $TraceabilityDate, $TraceabilityTime, $TraceabilityActivityType)
     {
-		$TraceabilityEntityType = $parm["TraceabilityEntityType"];
-		$TraceabilityEntityName = $parm["TraceabilityEntityName"];
-		$TraceabilityDate = $parm["TraceabilityDate"];
-		$TraceabilityTime = $parm["TraceabilityTime"];
-		$TraceabilityActivityType = $parm["TraceabilityActivityType"];
         global $db;
 		
         if($TraceabilityEntityType != "" && $TraceabilityEntityName != "" && $TraceabilityDate != "" && $TraceabilityTime != "" && $TraceabilityActivityType != ""){
@@ -72,14 +65,7 @@ class traceability {
     // @Parameter $TraceabilityTime
     // @Parameter $TraceabilityActivityType 
     // @Parameter $TraceabilityId
-	public function Update($parm)
-	{
-			$TraceabilityEntityType = $parm["TraceabilityEntityType"];
-			$TraceabilityEntityName = $parm["TraceabilityEntityName"];
-			$TraceabilityDate = $parm["TraceabilityDate"];
-			$TraceabilityTime = $parm["TraceabilityTime"];
-			$TraceabilityActivityType = $parm["TraceabilityActivityType"];
-			$TraceabilityId = $parm["TraceabilityId"];
+	public function Update($TraceabilityEntityType, $TraceabilityEntityName, $TraceabilityDate, $TraceabilityTime, $TraceabilityActivityType, $TraceabilityId){
             global $db;
             
             if($TraceabilityEntityType != "" && $TraceabilityEntityName != "" && $TraceabilityDate != "" && $TraceabilityTime != "" && $TraceabilityActivityType != ""&& $TraceabilityId != ""){
@@ -102,9 +88,7 @@ class traceability {
 	
         //DELETE Traceability
         //@Parameter $TraceabilityId
-	public function Delete_record($parm)
-	{
-			$TraceabilityId = $parm["TraceabilityId"];
+	public function Delete_record($TraceabilityId){
             global $db;
 		
             if($ChartId != ""){

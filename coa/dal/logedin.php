@@ -1,6 +1,5 @@
 <?php 
-require (dirname(__DIR__).'/config/db.php');;
-
+require (dirname(__DIR__).'/config/db.php');
 class logedin {
     
     public  $TableName = "logedin";
@@ -8,9 +7,8 @@ class logedin {
     
     // GET specific logedin or all logedins
     // @Parameter $userID (Optional) for Selecting Specific logedin    
-    public function Select($parm)
+    public function Select($cond)
     {
-		$cond = $parm["cond"];
         global $db;
         if($cond=="")
         {
@@ -36,11 +34,8 @@ class logedin {
     // @Parameter $userID userID
     // @Parameter $logintime logintime
     // @Parameter $validity validity
-    public function Add($parm)
+    public function Add($userID,$logintime,$validity)
     {
-		$userID = $parm["userID"];
-		$logintime = $parm["logintime"];
-		$validity = $parm["validity"];
         global $db;
         $Sql = 'INSERT INTO '.$this->TableName.' (userID , logintime , validity) VALUES ("'.$userID.'","'.$logintime.'","'.$validity.'")';
         try{
@@ -57,11 +52,8 @@ class logedin {
     // @Parameter $userID userID
     // @Parameter $logintime logintime
     // @Parameter $validity validity
-    public function Update($parm)
+    public function Update($userID,$logintime,$validity)
     {
-		$userID = $parm["userID"];
-		$logintime = $parm["logintime"];
-		$validity = $parm["validity"];
         global $db;
             
             if($userID != "" && $logintime != "" && $validity != ""){
@@ -84,9 +76,8 @@ class logedin {
     
     //DELETE SPECIFIC RECORD
     //@Parameter UserID
-    public function Delete($parm)
+    public function Delete($userID)
     {
-		$userID = $parm["userID"];
         global $db;
         $Sql = "DELETE FROM ".$this->TableName." WHERE userID='$userID'";
         try

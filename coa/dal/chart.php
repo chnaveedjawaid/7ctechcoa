@@ -1,5 +1,5 @@
 <?php 
-require (dirname(__DIR__).'/config/db.php');;
+require (dirname(__DIR__).'/config/db.php');
 
 class chart {
 
@@ -7,9 +7,8 @@ class chart {
     
     // GET A SPECIFIC CHART OR ALL CHART
     // @Parameter $Condition 
-    public function Select($parm)
+    public function Select($Condition)
     {
-		$Condition = $parm["Condition"];
         global $db;
         
         if ($Condition == "") {
@@ -35,10 +34,8 @@ class chart {
     // INSERT CHART
     // @Parameter $ChartName
     // @Parameter $ChartDescription
-    public function Add($parm)
+    public function Add($ChartName,$ChartDescription)
     {
-		$ChartName = $parm["ChartName"];
-		$ChartDescription = $parm["ChartDescription"];
         global $db;
 		
         if($ChartName != "" && $ChartDescription != ""){
@@ -62,11 +59,7 @@ class chart {
         // @Parameter $ChartName  
         // @Parameter $ChartDescription  
         // @Parameter $ChartId   
-	public function Update($parm)
-	{
-			$ChartName = $parm["ChartName"];
-			$ChartDescription = $parm["ChartDescription"];
-			$ChartId = $parm["ChartId"];
+	public function Update($ChartName,$ChartDescription,$ChartId){
             global $db;
             
             if($ChartName != "" && $ChartDescription != "" && $ChartId != ""){
@@ -90,9 +83,7 @@ class chart {
 	
         //DELETE SPECIFIC CHART
         //@Parameter $ChartId
-	public function Delete_record($parm)
-	{
-			$ChartId = $parm["ChartId"];
+	public function Delete_record($ChartId){
             global $db;
 		
             if($ChartId != ""){

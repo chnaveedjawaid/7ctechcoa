@@ -13,6 +13,8 @@
  */
 class Output {
     public function ReturnOutputCUD($result,$Verbarose){
+        
+       
         if($Verbarose===true){
             if($result === true){
                 $arr['resoult'] = 'Process completed successfuly';
@@ -22,11 +24,13 @@ class Output {
                 $arr['msg'] = false;
                 $arr['err_msg'] = $result;
             }
+            echo json_encode($arr);
             return json_encode($arr);
         }
     }
     
     public function ReturnOutputV($result){
+        print_r($result);
         if($result['err'] == false){
             $arr['resoult'] = $result['rows'];
             $arr['msg'] = true;

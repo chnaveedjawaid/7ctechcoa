@@ -44,7 +44,7 @@ class accessPoint{
         if($action == "checkLogin"){
             $auth = new authentication_logic();            
             $recivedParam = json_decode($param,TRUE);
-            return $auth->isLogin($recivedParam['userID'], $recivedParam['appKey'], $recivedParam['verb']);            
+           // return $auth->isLogin($recivedParam['userID'], $recivedParam['appKey'], $recivedParam['verb']);            
         }
         $accessLogic = new access_logic();
         

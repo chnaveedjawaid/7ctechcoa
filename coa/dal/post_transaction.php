@@ -1,6 +1,5 @@
 <?php 
 require (dirname(__DIR__).'/config/db.php');
-
 class post_transaction {
     public $TableName = "traceability";
     
@@ -11,8 +10,7 @@ class post_transaction {
     
     // GET A SPECIFIC Traceability OR ALL Traceability
     // @Parameter $Condition 
-    public function Select($parm){
-		$Condtion = $parm["Condtion"];
+    public function Select($Condtion){
         $Sql = "SELECT * FROM ".$this->TableName." ".$Condtion;
         try
         {
@@ -35,13 +33,8 @@ class post_transaction {
     // @Parameter $TraceabilityDate
     // @Parameter $TraceabilityTime
     // @Parameter $TraceabilityActivityType
-    public function Add($parm){
-		
-		$TraceabilityEntityType = $parm["TraceabilityEntityType"];
-		$TraceabilityEntityName = $parm["TraceabilityEntityName"];
-		$TraceabilityDate = $parm["TraceabilityDate"];
-		$TraceabilityTime = $parm["TraceabilityTime"];
-		$TraceabilityActivityType = $parm["TraceabilityActivityType"];        
+    public function Add($TraceabilityEntityType, $TraceabilityEntityName, $TraceabilityDate, $TraceabilityTime, $TraceabilityActivityType){
+        
         global $db;
         try
         {
@@ -64,14 +57,7 @@ class post_transaction {
     // @Parameter $TraceabilityTime
     // @Parameter $TraceabilityActivityType 
     // @Parameter $TraceabilityId
-    public function Update($parm){
-		
-		$TraceabilityEntityType = $parm["TraceabilityEntityType"];
-		$TraceabilityEntityName = $parm["TraceabilityEntityName"];
-		$TraceabilityDate = $parm["TraceabilityDate"];
-		$TraceabilityTime = $parm["TraceabilityTime"];
-		$TraceabilityActivityType = $parm["TraceabilityActivityType"];
-		$TraceabilityId = $parm["TraceabilityId"];
+    public function Update($TraceabilityEntityType, $TraceabilityEntityName, $TraceabilityDate, $TraceabilityTime, $TraceabilityActivityType, $TraceabilityId){
         global $db;
         $TraceabilityEntityType = trim($TraceabilityEntityType);
         $TraceabilityEntityName = trim($TraceabilityEntityName);
@@ -122,9 +108,8 @@ class post_transaction {
     
     //DELETE Traceability
     //@Parameter $TraceabilityId
-    public function Delete_record($parm)
+    public function Delete_record($TraceabilityId)
     {
-		$TraceabilityId = $parm["TraceabilityId"];
         global $db;
         try {
              $Sql = "DELETE FROM ".$this->TableName." WHERE Id =".$TraceabilityId;

@@ -1,5 +1,5 @@
 <?php 
-require (dirname(__DIR__).'/config/db.php');;
+require (dirname(__DIR__).'/config/db.php');
 
 
 class transaction_transaction_type {
@@ -12,8 +12,7 @@ class transaction_transaction_type {
     
     // GET A SPECIFIC Transaction Type OR ALL Transaction Type
     // @Parameter $condition 
-    public function Select($parm){
-		$Condtion = $parm["Condtion"];
+    public function Select($Condtion){
         $Sql = "SELECT * FROM ".$this->TableName." ".$Condtion;
         try
         {
@@ -32,9 +31,8 @@ class transaction_transaction_type {
     // INSERT TRANSACTION Type
     // @Parameter $TransactionName
     // @Parameter $TransactionDescription
-    public function Add($parm){
-        $TransactionName = $parm["TransactionName"];
-		$TransactionDescription = $parm["TransactionDescription"];
+    public function Add($TransactionName, $TransactionDescription){
+        
         global $db;
         try
         {
@@ -54,10 +52,7 @@ class transaction_transaction_type {
     // @Parameter $TransactionName
     // @Parameter $TransactionDescription
     // @Parameter $TransactionTypeId
-    public function Update($parm){
-		$TransactionName = $parm["TransactionName"];
-		$TransactionDescription = $parm["TransactionDescription"];
-		$TransactionTypeId = $parm["TransactionTypeId"];
+    public function Update($TransactionName, $TransactionDescription, $TransactionTypeId){
         global $db;
         $TransactionName = trim($TransactionName);
         $TransactionDescription = trim($TransactionDescription);
@@ -87,8 +82,8 @@ class transaction_transaction_type {
     
     //DELETE TRANSACTION TYPE
     //@Parameter $TransactionTypeId
-    public function Delete_record($parm){
-		$TransactionTypeId = $parm["TransactionTypeId"];
+    public function Delete_record($TransactionTypeId)
+    {
         global $db;
         try {
              $Sql = "DELETE FROM ".$this->TableName." WHERE Type_id =".$TransactionTypeId;

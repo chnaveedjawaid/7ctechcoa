@@ -13,7 +13,15 @@
  */
 class general_logic {
      public $Verbrose = true;
-     
+     ////long
+      
+     public function NewTransection_($TransactionId,$AccountId, $Dr, $Cr, $_Verbrose){
+         $output = new Output(); 
+         $General = new transaction_general_general();
+         $result = $General->Add($TransactionId,$AccountId, $Dr, $Cr);
+         return $output->ReturnOutputCUD($result,$_Verbrose);
+     }
+     ////long
      public function NewTransection($parm)
 	 {
 		 $TransactionId = $parm["TransactionId"];

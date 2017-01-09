@@ -1,6 +1,5 @@
 <?php 
 require (dirname(__DIR__).'/config/db.php');
-
 class loginvalidity {
     
     public  $TableName = "loginvalidity";
@@ -8,9 +7,8 @@ class loginvalidity {
     
     // GET specific loginvalidity or all loginvalidity
     // @Parameter $validity (Optional) for Selecting Specific loginvalidity    
-    public function Select($parm)
+    public function Select($cond)
     {
-		$cond = $parm["cond"];
         global $db;
 		$inject = new injection_logic();
 		if($inject->isSqlInjection($cond)){
@@ -40,10 +38,8 @@ class loginvalidity {
     // INSERT loginvalidity
     // @Parameter $validity validity
     // @Parameter $calls_valid calls_valid
-    public function Add($parm)
+    public function Add($validity,$calls_valid)
     {
-		$validity = $parm["validity"];
-		$calls_valid = $parm["calls_valid"];
         global $db;
         $inject = new injection_logic();
 		if($inject->isSqlInjection($validity) == true || $inject->isSqlInjection($calls_valid) == true){
@@ -65,10 +61,8 @@ class loginvalidity {
     // UPDATE loginvalidity
     // @Parameter $validity validity
     // @Parameter $calls_valid calls_valid
-    public function Update($parm)
+    public function Update($validity,$calls_valid)
     {
-		$validity = $parm["validity"];
-		$calls_valid = $parm["calls_valid"];
         global $db;
             
             if($validity != "" && $calls_valid != ""){
@@ -91,9 +85,8 @@ class loginvalidity {
     
     //DELETE SPECIFIC RECORD
     //@Parameter validity
-    public function Delete_record($parm)
+    public function Delete_record($validity)
     {
-		$validity = $parm["validity"];
         global $db;
         $Sql = "DELETE FROM ".$this->TableName + " WHERE validity =".$validity;
         try
