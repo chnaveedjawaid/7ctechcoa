@@ -8,13 +8,15 @@ class applications {
     
     // GET specific application or all applications
     // @Parameter $appID (Optional) for Selecting Specific application    
-    public function Select($cond)
+    public function Select($parm)
     {
+	
         global $db;
 		$inject = new injection_logic();
+                 $cond = $parm['cond'];
 		if($inject->isSqlInjection($cond)){
 			$arr['err'] = true;
-            $arr['msg'] = 'Injection Found';
+                        $arr['msg'] = 'Injection Found';
 		}else{
 			if($cond=="")
 			{
@@ -41,8 +43,11 @@ class applications {
     // @Parameter $appname appname
     // @Parameter $appdisc appdisc
 	// @Parameter $appdisc app_key
-    public function Add($appname,$appdisc,$app_key)
+    public function Add($parm)
     {
+		$appname = $parm["appname"];
+		$appdisc = $parm["appdisc"];
+		$app_key = $parm["app_key"];
         global $db;
 		$inject = new injection_logic();
 		if($inject->isSqlInjection($appname) == true || $inject->isSqlInjection($appdisc) == true || $inject->isSqlInjection($app_key) == true){
@@ -78,8 +83,12 @@ class applications {
     // @Parameter $appdisc appdisc
     // @Parameter $registrationdate registrationdate
 	// @Parameter $appID appID
-    public function Update($appname,$appdisc,$registrationdate, $appID)
+    public function Update($parm)
     {
+		$appname = $parm["appname"];
+		$appdisc = $parm["appdisc"];
+		$registrationdate = $parm["registrationdate"];
+		$appID = $parm["appID"];
         global $db;
             
             if($appname != "" && $appdisc != "" && $registrationdate != "" && $appID != ""){
@@ -102,8 +111,9 @@ class applications {
     
     //DELETE SPECIFIC RECORD
     //@Parameter appID
-    public function Delete_record($appID)
+    public function Delete_record($parm)
     {
+		$appID = $parm["appID"];
         global $db;
         $Sql = "DELETE FROM ".$this->TableName + " WHERE appID =".$appID;
         try

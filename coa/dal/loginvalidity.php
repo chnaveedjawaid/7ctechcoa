@@ -8,8 +8,9 @@ class loginvalidity {
     
     // GET specific loginvalidity or all loginvalidity
     // @Parameter $validity (Optional) for Selecting Specific loginvalidity    
-    public function Select($cond)
+    public function Select($parm)
     {
+		$cond = $parm["cond"];
         global $db;
 		$inject = new injection_logic();
 		if($inject->isSqlInjection($cond)){
@@ -39,8 +40,10 @@ class loginvalidity {
     // INSERT loginvalidity
     // @Parameter $validity validity
     // @Parameter $calls_valid calls_valid
-    public function Add($validity,$calls_valid)
+    public function Add($parm)
     {
+		$validity = $parm["validity"];
+		$calls_valid = $parm["calls_valid"];
         global $db;
         $inject = new injection_logic();
 		if($inject->isSqlInjection($validity) == true || $inject->isSqlInjection($calls_valid) == true){
@@ -62,8 +65,10 @@ class loginvalidity {
     // UPDATE loginvalidity
     // @Parameter $validity validity
     // @Parameter $calls_valid calls_valid
-    public function Update($validity,$calls_valid)
+    public function Update($parm)
     {
+		$validity = $parm["validity"];
+		$calls_valid = $parm["calls_valid"];
         global $db;
             
             if($validity != "" && $calls_valid != ""){
@@ -86,8 +91,9 @@ class loginvalidity {
     
     //DELETE SPECIFIC RECORD
     //@Parameter validity
-    public function Delete_record($validity)
+    public function Delete_record($parm)
     {
+		$validity = $parm["validity"];
         global $db;
         $Sql = "DELETE FROM ".$this->TableName + " WHERE validity =".$validity;
         try

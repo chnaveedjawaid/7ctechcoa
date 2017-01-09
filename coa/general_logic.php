@@ -14,7 +14,14 @@
 class general_logic {
      public $Verbrose = true;
      
-     public function NewTransection($TransactionId,$AccountId, $Dr, $Cr, $_Verbrose){
+     public function NewTransection($parm)
+	 {
+		 $TransactionId = $parm["TransactionId"];
+		 $AccountId = $parm["AccountId"];
+		 $Dr = $parm["Dr"];
+		 $Cr = $parm["Cr"];
+		 $_Verbrose = $parm["_Verbrose"];
+		 
          $output = new Output(); 
          $General = new transaction_general_general();
          $result = $General->Add($TransactionId,$AccountId, $Dr, $Cr);

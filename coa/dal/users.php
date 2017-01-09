@@ -8,8 +8,9 @@ class users {
     
     // GET specific user or all users
     // @Parameter $userid (Optional) for Selecting Specific user    
-    public function Select($cond)
+    public function Select($parm)
     {
+		$cond = $parm["cond"];
         global $db;
         $inject = new injection_logic();
 		if($inject->isSqlInjection($cond)){
@@ -42,8 +43,12 @@ class users {
     // @Parameter $userid_caller userID_caller
     // @Parameter $appid appID
 	// @Parameter $appauth appauthlevel
-    public function Add($userid_local,$userid_caller,$appid,$appauth)
+    public function Add($parm)
     {
+		$userid_local = $parm["userid_local"];
+		$userid_caller = $parm["userid_caller"];
+		$appid = $parm["appid"];
+		$appauth = $parm["appauth"];
         global $db;
         $inject = new injection_logic();
 		if($inject->isSqlInjection($userid_local) == true || $inject->isSqlInjection($userid_caller) == true || $inject->isSqlInjection($appid) == true  || $inject->isSqlInjection($appauth) == true){
@@ -66,8 +71,11 @@ class users {
     // @Parameter $userid_local userID_local
     // @Parameter $userid_caller userID_caller
     // @Parameter $appid appID
-    public function Update($userid_local,$userid_caller,$appid)
+    public function Update($parm)
     {
+		$userid_local = $parm["userid_local"];
+		$userid_caller = $parm["userid_caller"];
+		$appid = $parm["appid"];
         global $db;
             
             if($userid_local != "" && $userid_caller != "" && $appid != ""){
@@ -92,8 +100,11 @@ class users {
     // @Parameter $userid_local userID_local
     // @Parameter $userid_caller userID_caller
     // @Parameter $appid appID
-    public function UpdateWithCount($userid_local,$userid_caller,$appid)
+    public function UpdateWithCount($parm)
     {
+		$userid_local = $parm["userid_local"];
+		$userid_caller = $parm["userid_caller"];
+		$appid = $parm["appid"];
         global $db;
             
             if($userid_local != "" && $userid_caller != "" && $appid != ""){
@@ -116,8 +127,9 @@ class users {
     
     //DELETE SPECIFIC RECORD
     //@Parameter UserID Local
-    public function Delete_record($userid_local)
+    public function Delete_record($parm)
     {
+		$userid_local = $parm["userid_local"];
         global $db;
         $Sql = "DELETE FROM ".$this->TableName + " WHERE userid_local =".$userid_local;
         try

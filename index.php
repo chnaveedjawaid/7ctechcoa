@@ -12,7 +12,13 @@ and open the template in the editor.
     <body>
         <?php
         // put your code here
-        echo "test";
+        require 'coa/accesspoint/accesspoint.php';
+        $caller = new accessPoint();
+        $cname= $_GET['cname'];
+        $fname = $_GET['fname'];
+        $param = $_GET['param'];
+        $resp = $caller->MainCall($cname, $fname,NULL, $param);
+        echo $resp;
         ?>
     </body>
 </html>

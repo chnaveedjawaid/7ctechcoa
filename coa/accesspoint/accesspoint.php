@@ -1,5 +1,5 @@
-<?php require("../init.php");
-
+<?php 
+require (dirname(__DIR__).'/init.php');
 //To check if user is logedin and 50000 sec has been passed, It'll be logout
 	//$valCheck = new validity_Check();
 
@@ -8,8 +8,8 @@
 // @Parameter App Description 
 // @Parameter Master Authkey
 // @Return api key 
-	$app = new access_logic();
-	$bb = $app->CreateApplication($_GET["app_name"], $_GET["app_desc"],$_GET["auth_key"], true);
+	//$app = new access_logic();
+	//$bb = $app->CreateApplication($_GET["app_name"], $_GET["app_desc"],$_GET["auth_key"], true);
         ///....
 //Create or Login user
 // @Parameter userIDcaller
@@ -25,8 +25,37 @@
 
 
 
-echo "<pre>";
-print_r($bb);
-echo "</pre>";
+//echo "<pre>";
+//print_r($bb);
+//echo "</pre>";
+class accessPoint{
+   var $accessLogic;
+   public  function checkLogin($recivedParam){
+        $auth = new authentication_logic();            
+        return $auth->isLogin($recivedParam['userID'], $recivedParam['appKey'], $recivedParam['verb']);     
+   }
+    public function MainCall($cname, $fname, $action = NULL, $param = FALSE) {
+        try{
+             $recivedParam = json_decode($param,true);
+            if(!$this->checkLogin($recivedParam)){
+               // return "-1-Not Loged in";
+            }
+             
+        if($action == "checkLogin"){
+            $auth = new authentication_logic();            
+            $recivedParam = json_decode($param,TRUE);
+            return $auth->isLogin($recivedParam['userID'], $recivedParam['appKey'], $recivedParam['verb']);            
+        }
+        $accessLogic = new access_logic();
+        
+        return $accessLogic->call($cname, $fname, $param);
+                
+        }
+        catch(Exception $e){
+            return "-1";
+        }
+    }
+    
+}
 
 ?>

@@ -11,7 +11,8 @@ class post_transaction {
     
     // GET A SPECIFIC Traceability OR ALL Traceability
     // @Parameter $Condition 
-    public function Select($Condtion){
+    public function Select($parm){
+		$Condtion = $parm["Condtion"];
         $Sql = "SELECT * FROM ".$this->TableName." ".$Condtion;
         try
         {
@@ -34,8 +35,13 @@ class post_transaction {
     // @Parameter $TraceabilityDate
     // @Parameter $TraceabilityTime
     // @Parameter $TraceabilityActivityType
-    public function Add($TraceabilityEntityType, $TraceabilityEntityName, $TraceabilityDate, $TraceabilityTime, $TraceabilityActivityType){
-        
+    public function Add($parm){
+		
+		$TraceabilityEntityType = $parm["TraceabilityEntityType"];
+		$TraceabilityEntityName = $parm["TraceabilityEntityName"];
+		$TraceabilityDate = $parm["TraceabilityDate"];
+		$TraceabilityTime = $parm["TraceabilityTime"];
+		$TraceabilityActivityType = $parm["TraceabilityActivityType"];        
         global $db;
         try
         {
@@ -58,7 +64,14 @@ class post_transaction {
     // @Parameter $TraceabilityTime
     // @Parameter $TraceabilityActivityType 
     // @Parameter $TraceabilityId
-    public function Update($TraceabilityEntityType, $TraceabilityEntityName, $TraceabilityDate, $TraceabilityTime, $TraceabilityActivityType, $TraceabilityId){
+    public function Update($parm){
+		
+		$TraceabilityEntityType = $parm["TraceabilityEntityType"];
+		$TraceabilityEntityName = $parm["TraceabilityEntityName"];
+		$TraceabilityDate = $parm["TraceabilityDate"];
+		$TraceabilityTime = $parm["TraceabilityTime"];
+		$TraceabilityActivityType = $parm["TraceabilityActivityType"];
+		$TraceabilityId = $parm["TraceabilityId"];
         global $db;
         $TraceabilityEntityType = trim($TraceabilityEntityType);
         $TraceabilityEntityName = trim($TraceabilityEntityName);
@@ -109,8 +122,9 @@ class post_transaction {
     
     //DELETE Traceability
     //@Parameter $TraceabilityId
-    public function Delete_record($TraceabilityId)
+    public function Delete_record($parm)
     {
+		$TraceabilityId = $parm["TraceabilityId"];
         global $db;
         try {
              $Sql = "DELETE FROM ".$this->TableName." WHERE Id =".$TraceabilityId;

@@ -7,8 +7,9 @@ class transaction {
     
     // GET A SPECIFIC Transaction OR ALL Transaction
     // @Parameter $Condition 
-    public function Select($Condition)
+    public function Select($parm)
     {
+		$Condition = $parm["Condition"];
         global $db;
         
         if ($Condition == "") {
@@ -57,8 +58,13 @@ class transaction {
     // @Parameter $TransactionDate
     // @Parameter $TransactionTime
     // @Parameter $UserId
-    public function Add($TransactionTypeId, $TransactionDescription, $TransactionDate, $TransactionTime,$UserId)
+    public function Add($parm)
     {
+		$TransactionTypeId = $parm["TransactionTypeId"];
+		$TransactionDescription = $parm["TransactionDescription"];
+		$TransactionDate = $parm["TransactionDate"];
+		$TransactionTime = $parm["TransactionTime"];
+		$UserId = $parm["UserId"];
         global $db;
 		
         if($TransactionTypeId != "" && $TransactionDescription != "" && $TransactionDate != "" && $TransactionTime != "" && $UserId){
@@ -87,7 +93,14 @@ class transaction {
     // @Parameter $TransactionTime
     // @Parameter $TransactionId
     // @Parameter $UserId
-	public function Update($TransactionTypeId, $TransactionDescription, $TransactionDate, $TransactionTime, $TransactionId, $UserId){
+	public function Update($parm)
+	{
+			$TransactionTypeId = $parm["TransactionTypeId"];
+			$TransactionDescription = $parm["TransactionDescription"];
+			$TransactionDate = $parm["TransactionDate"];
+			$TransactionTime = $parm["TransactionTime"];
+			$TransactionId = $parm["TransactionId"];
+			$UserId = $parm["UserId"];
             global $db;            
             if($TransactionTypeId != "" && $TransactionDescription != "" && $TransactionDate != "" && $TransactionTime != "" && $TransactionId != "" && $UserId!=""){
                 $Sql = 'UPDATE '.$this->TableName.' SET User_id = '.$UserId.', Type_id = '.$TransactionTypeId.', Description='.$TransactionDescription.', Date='.$TransactionDate.', Time='.$TransactionTime.' WHERE Id ='.$TransactionId;
@@ -105,7 +118,9 @@ class transaction {
 	}
 	//DELETE TRANSACTION
         //@Parameter $TransactionId
-	public function Delete_record($TransactionId){
+	public function Delete_record($parm)
+	{
+			$TransactionId = $parm["TransactionId"];
             global $db;
 		
             if($TransactionId != ""){

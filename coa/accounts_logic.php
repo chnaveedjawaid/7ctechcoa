@@ -4,8 +4,12 @@ class accounts_logic {
     public $Verbrose = true;
     
     
-    public function CreateAccount($AccountName, $AccountDescription, $Account_Parent_id, $AccountTypeId,$_Verbrose){
-        
+    public function CreateAccount($parm){
+        $AccountName = $parm["AccountName"];
+		$AccountDescription = $parm["AccountDescription"];
+		$Account_Parent_id = $parm["Account_Parent_id"];
+		$AccountTypeId = $parm["AccountTypeId"];
+		$_Verbrose = $parm["_Verbrose"];
 		$output = new Output();
         $this->Verbrose = $_Verbrose;
         $arr = array();
@@ -14,7 +18,8 @@ class accounts_logic {
         return $output->ReturnOutputCUD($result,$_Verbrose);
     }
     
-    public function LoadAllAcountFormated($_Verbrose){
+    public function LoadAllAcountFormated($parm){
+	$_Verbrose = $parm["_Verbrose"];
         $output = new Output();
         $this->Verbrose = $_Verbrose;
         $Account = new account();
@@ -29,14 +34,21 @@ class accounts_logic {
         return $output->ReturnOutputV($result);
     }
     
-    public function LoadAcount($condition){
+    public function LoadAcount($parm){
+		$condition = $parm["condition"];
         $output = new Output();
         $Account = new account();
         $result = $Account->Select("Where id = $condition");
         return $output->ReturnOutputV($result);
     }
     
-    public function UpdateAcout($AccountName, $AccountDescription, $AccountTypeId, $Account_Parent_id, $AccountId, $_Verbrose){
+    public function UpdateAcout($parm){
+		$AccountName = $parm["AccountName"];
+		$AccountDescription = $parm["AccountDescription"];
+		$AccountTypeId = $parm["AccountTypeId"];
+		$Account_Parent_id = $parm["Account_Parent_id"];
+		$AccountId = $parm["AccountId"];
+		$_Verbrose = $parm["_Verbrose"];
         $Account = new account();
         $this->Verbrose = $_Verbrose;
         $output = new Output();
@@ -44,14 +56,19 @@ class accounts_logic {
         return $output->ReturnOutputCUD($result,$_Verbrose);
     }
     
-    public function Select_Drcr($Account_id){
+    public function Select_Drcr($parm){
+		$Account_id = $parm["Account_id"];
         $Account = new account();
         $output = new Output();
         $result = $Account->Select_Drcr($Account_id);
         $output->ReturnOutputV($result);
     }
     
-    public function DrCr($Account_id, $Dr, $Cr, $_Verbrose){
+    public function DrCr($parm){
+		$Account_id = $parm["Account_id"];
+		$Dr = $parm["Dr"];
+		$Cr = $parm["Cr"];
+		$_Verbrose = $parm["_Verbrose"];
          $output = new Output();
          $this->Verbrose = $_Verbrose;
          $Account = new account();

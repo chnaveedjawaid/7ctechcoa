@@ -20,23 +20,25 @@ class access_logic {
 	
 	public function call($class,$function,$para=false)
 	{
-		
-			
+		        $para = json_decode($para,true);
+                       
 			$new_class = new $class();
 			
 			$res = $new_class->$function($para);
 			
 			return json_encode($res);
-			
+					
 		
 		
 	}
 		
 		
-	public function CreateApplication($appname,$appdisc,$_authkey,$_Verbrose){
-		
-		
-		
+	public function CreateApplication($parm)
+	{
+		$appname = $parm["appname"];
+		$appdisc = $parm["appdisc"];
+		$_authkey = $parm["_authkey"];
+		$_Verbrose = $parm["_Verbrose"];
 		
         $auth_key = $_authkey;
 		$Output = new Output();
@@ -65,7 +67,13 @@ class access_logic {
     // @Parameter $app_key app_key
 	// @Parameter $appauthlevel appauthlevel
 	// @Parameter $_Verbrose Verbrose
-	public function CreateUser($userid_caller,$app_key,$appauthlevel,$_Verbrose){
+	public function CreateUser($parm)
+	{
+		$userid_caller = $parm["userid_caller"];
+		$app_key = $parm["app_key"];
+		$appauthlevel = $parm["appauthlevel"];
+		$_Verbrose = $parm["_Verbrose"];
+		
 		$Output = new Output();
 		$Application = new applications();
 		$App = $Application->Select("WHERE app_key='$app_key'");
@@ -105,7 +113,11 @@ class access_logic {
 	// LOGIN User
     // @Parameter $userid_caller userid_caller
     // @Parameter $appID appID
-	public function loginUser($userid_caller, $appID){
+	public function loginUser($parm)
+	{
+		$userid_caller = $parm["userid_caller"];
+		$appID = $parm["appID"];
+		
 		$Output = new Output();
 		$Users = new users();
 		$user = $Users->Select("WHERE userID_caller='$userid_caller' AND appID='$appID'");
@@ -135,7 +147,8 @@ class access_logic {
 		return $res;
 	}
 	
-	public function CreateAcount($userid_caller,$appID,$acountName,$acountDesc,$parentId,$acountTypeId,$isType=false){
+	public function CreateAcount($userid_caller,$appID,$acountName,$acountDesc,$parentId,$acountTypeId,$isType=false)
+	{
 		$Output = new Output();
 		$Users = new users();
 		$login = $this->loginUser($userid_caller, $appID);
@@ -156,8 +169,12 @@ class access_logic {
 		}
 	}
 	
-	
-	public function CreateTransiction($userid_caller,$appID,$type_id,$disc){
+	public function CreateTransiction($parm)
+	{
+		$userid_caller = $parm["userid_caller"];
+		$appID = $parm["appID"];
+		$type_id = $parm["type_id"];
+		$disc = $parm["disc"];
 		
 		$Output = new Output();
 		$Users = new users();
@@ -172,14 +189,13 @@ class access_logic {
 			$time = date('H:i:s');
 			$transactions = new transaction();
 			echo $add_transaction = $transactions->Add($type_id,$disc,$date,$time,$userid_caller);
-			
-			
-			
-			
 		}
 	}	
 		
-	public function Select_view($userid_caller,$appID){
+	public function Select_view($parm)
+	{
+		$userid_caller = $parm["userid_caller"];
+		$appID = $parm["appID"];
 		
 		$Output = new Output();
 		$Users = new users();
@@ -195,13 +211,16 @@ class access_logic {
 			$add_acount = $acount->Select();
 			print_r($add_acount);
 		}
-		
-		
 	}	
 	
-	public function PostTransection($userid_caller,$appID,$_TransectionDescription,$_Account_id,$_Dabit, $_Verbrose)
-	
+	public function PostTransection($parm)
 	{
+		$userid_caller = $parm["userid_caller"];
+		$appID = $parm["appID"];
+		$_TransectionDescription = $parm["_TransectionDescription"];
+		$_Account_id = $parm["_Account_id"];
+		$_Dabit = $parm["_Dabit"];
+		$_Verbrose = $parm["_Verbrose"];
 		
 		$Output = new Output();
 		$Users = new users();
@@ -236,17 +255,22 @@ class access_logic {
 		}
     }
 	
-	
-	public function GetGeneralJournal($userid_caller,$appID,$cond){
-       
-	   $trans = new transaction_general_general();
-        $output = new Output();
+	public function GetGeneralJournal($parm)
+	{
+		$userid_caller = $parm["userid_caller"];
+		$appID = $parm["appID"];
+		$cond = $parm["cond"];
 		
+		$trans = new transaction_general_general();
+        $output = new Output();
         $res = $trans->Select($cond);
         return $output->ReturnOutputV($res);
     }
 	
-	public function incomeStatement($id){
+	public function incomeStatement($parm)
+	{
+		$id = $parm["id"];
+		
 		$acount = new account();
 		$total_revenue = "";
 		$total_expense = "";
@@ -267,17 +291,11 @@ class access_logic {
 		
 		$data['all_total'] = $rev['total']-$tot_exp['total'];
 		return $data;
-		
-		
-		
-		
-		
-		
 	}
 	
-	
-	
-	public function get_revenue($rev_n){
+		public function get_revenue($parm)
+	{
+		$rev_n = $parm["rev_n"];
 		
 		$Type = new type();
 		$trans  = new transaction_general_general();
@@ -328,10 +346,11 @@ class access_logic {
 			
 		
 		}
-		
 	}
 	
-	public function get_expense($exp){
+	public function get_expense($parm)
+	{
+		$exp = $parm["exp"];
 		
 		$Type = new type();
 		$trans  = new transaction_general_general();
@@ -381,18 +400,13 @@ class access_logic {
 				$group++;
 			endforeach;
 			
-			
-			
-		
-			
 			return $exp;
 		
 		}
-			
 	}
 	
-	
-	public function selectType($userid_caller,$appID,$condition=false){
+	public function selectType($userid_caller,$appID,$condition=false)
+	{
 		
 		$Output = new Output();
 		$Users = new users();
@@ -414,7 +428,12 @@ class access_logic {
 		}
 	}
 	
-	public function Add($userid_caller,$appID,$type_dec,$type_name){
+	public function Add($parm)
+	{
+		$userid_caller = $parm["userid_caller"];
+		$appID = $parm["appID"];
+		$type_dec = $parm["type_dec"];
+		$type_name = $parm["type_name"];
 		
 		$Output = new Output();
 		$Users = new users();
@@ -435,6 +454,5 @@ class access_logic {
 		
 		}
 	}
-	
 	
 }

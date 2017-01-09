@@ -7,8 +7,9 @@ class chart {
     
     // GET A SPECIFIC CHART OR ALL CHART
     // @Parameter $Condition 
-    public function Select($Condition)
+    public function Select($parm)
     {
+		$Condition = $parm["Condition"];
         global $db;
         
         if ($Condition == "") {
@@ -34,8 +35,10 @@ class chart {
     // INSERT CHART
     // @Parameter $ChartName
     // @Parameter $ChartDescription
-    public function Add($ChartName,$ChartDescription)
+    public function Add($parm)
     {
+		$ChartName = $parm["ChartName"];
+		$ChartDescription = $parm["ChartDescription"];
         global $db;
 		
         if($ChartName != "" && $ChartDescription != ""){
@@ -59,7 +62,11 @@ class chart {
         // @Parameter $ChartName  
         // @Parameter $ChartDescription  
         // @Parameter $ChartId   
-	public function Update($ChartName,$ChartDescription,$ChartId){
+	public function Update($parm)
+	{
+			$ChartName = $parm["ChartName"];
+			$ChartDescription = $parm["ChartDescription"];
+			$ChartId = $parm["ChartId"];
             global $db;
             
             if($ChartName != "" && $ChartDescription != "" && $ChartId != ""){
@@ -83,7 +90,9 @@ class chart {
 	
         //DELETE SPECIFIC CHART
         //@Parameter $ChartId
-	public function Delete_record($ChartId){
+	public function Delete_record($parm)
+	{
+			$ChartId = $parm["ChartId"];
             global $db;
 		
             if($ChartId != ""){

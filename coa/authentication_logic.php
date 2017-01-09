@@ -10,7 +10,12 @@ class authentication_logic {
 	public $Verbrose = true;
 	
 	
-	public function isLogin($userid_caller, $app_key, $Verbrose){
+	public function isLogin($parm)
+	{
+		$userid_caller = $parm["userid_caller"];
+		$app_key = $parm["app_key"];
+		$Verbrose = $parm["Verbrose"];
+		
 		$Output = new Output();
 		$Users = new users();
 		$Application = new applications();

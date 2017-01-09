@@ -13,8 +13,15 @@
  */
 class activity_logic {
     public $Verbrose = true;
-    public function NewActivity($entitytype,$entityname,$date,$time,$activitytype){
+    public function NewActivity($parm)
+	{
+		$entitytype = $parm["entitytype"];
+		$entityname = $parm["entityname"];
+		$date = $parm["date"];
+		$time = $parm["time"];
+		$activitytype = $parm["activitytype"];
         $Activity = new activity();
+		
         $output = new Output();
         $result = $Activity->Select("where type='".$activitytype."'");
         if($result['err']===false)

@@ -8,8 +8,9 @@ class logedin {
     
     // GET specific logedin or all logedins
     // @Parameter $userID (Optional) for Selecting Specific logedin    
-    public function Select($cond)
+    public function Select($parm)
     {
+		$cond = $parm["cond"];
         global $db;
         if($cond=="")
         {
@@ -35,8 +36,11 @@ class logedin {
     // @Parameter $userID userID
     // @Parameter $logintime logintime
     // @Parameter $validity validity
-    public function Add($userID,$logintime,$validity)
+    public function Add($parm)
     {
+		$userID = $parm["userID"];
+		$logintime = $parm["logintime"];
+		$validity = $parm["validity"];
         global $db;
         $Sql = 'INSERT INTO '.$this->TableName.' (userID , logintime , validity) VALUES ("'.$userID.'","'.$logintime.'","'.$validity.'")';
         try{
@@ -53,8 +57,11 @@ class logedin {
     // @Parameter $userID userID
     // @Parameter $logintime logintime
     // @Parameter $validity validity
-    public function Update($userID,$logintime,$validity)
+    public function Update($parm)
     {
+		$userID = $parm["userID"];
+		$logintime = $parm["logintime"];
+		$validity = $parm["validity"];
         global $db;
             
             if($userID != "" && $logintime != "" && $validity != ""){
@@ -77,8 +84,9 @@ class logedin {
     
     //DELETE SPECIFIC RECORD
     //@Parameter UserID
-    public function Delete($userID)
+    public function Delete($parm)
     {
+		$userID = $parm["userID"];
         global $db;
         $Sql = "DELETE FROM ".$this->TableName." WHERE userID='$userID'";
         try

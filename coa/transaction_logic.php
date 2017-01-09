@@ -13,7 +13,18 @@
  */
 class transaction_logic {
     
-    public function PostTransection($_TransectionDescription, $_TransectionDate, $_TransectionTime, $_TransectionType_id, $_Account_id, $_CorespondingAccount_id, $_Dabit,$UserId, $_Verbrose){
+    public function PostTransection($parm)
+	{
+		$_TransectionDescription = $parm["_TransectionDescription"];
+		$_TransectionDate = $parm["_TransectionDate"];
+		$_TransectionTime = $parm["_TransectionTime"];
+		$_TransectionType_id = $parm["_TransectionType_id"];
+		$_Account_id = $parm["_Account_id"];
+		$_CorespondingAccount_id = $parm["_CorespondingAccount_id"];
+		$_Dabit = $parm["_Dabit"];
+		$UserId = $parm["UserId"];
+		$_Verbrose = $parm["_Verbrose"];
+		
         $Account = new accounts_logic();
         $Account->DrCr($_Account_id, $_Dabit, 00, false);
         $Account->DrCr($_CorespondingAccount_id, 00, $_Dabit, false);

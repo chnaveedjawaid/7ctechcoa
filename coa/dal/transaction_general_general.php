@@ -11,7 +11,8 @@ class transaction_general_general {
     
     // GET A SPECIFIC Transaction GG OR ALL Transaction GG
     // @Parameter $condition 
-    public function Select($condition){
+    public function Select($parm){
+		$condition = $parm["condition"];
         global $db;
         $Sql = "SELECT * FROM ".$this->TableName." ".$condition;
         try
@@ -57,7 +58,11 @@ class transaction_general_general {
     // @Parameter $TransactionSubAccountId
     // @Parameter $TransactionDebit
     // @Parameter $TransactionCredit
-    public function Add($TransactionId,$TransactionSubAccountId, $TransactionDebit, $TransactionCredit){        
+    public function Add($parm){ 
+		$TransactionId = $parm["TransactionId"];
+		$TransactionSubAccountId = $parm["TransactionSubAccountId"];
+		$TransactionDebit = $parm["TransactionDebit"];
+		$TransactionCredit = $parm["TransactionCredit"];     
         global $db;
         try
         {
@@ -77,7 +82,11 @@ class transaction_general_general {
     // @Parameter $TransactionDebit
     // @Parameter $TransactionCredit
     // @Parameter $TransactionId
-    public function Update($TransactionSubAccountId, $TransactionDebit, $TransactionCredit, $TransactionId){
+    public function Update($parm){
+		$TransactionSubAccountId = $parm["TransactionSubAccountId"];
+		$TransactionDebit = $parm["TransactionDebit"];
+		$TransactionCredit = $parm["TransactionCredit"];
+		$TransactionId = $parm["TransactionId"];
         global $db;
         $TransactionSubAccountId = trim($TransactionSubAccountId);
         $TransactionDebit = trim($TransactionDebit);
@@ -113,8 +122,8 @@ class transaction_general_general {
     
     //DELETE TRANSACTION
     //@Parameter $TransactionId
-    public function Delete_record($TransactionId)
-    {
+    public function Delete_record($parm){
+		$TransactionId = $parm["TransactionId"];
         global $db;
         try {
              $Sql = "DELETE FROM ".$this->TableName." WHERE Transaction_id =".$TransactionId;

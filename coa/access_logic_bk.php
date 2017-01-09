@@ -14,7 +14,13 @@ class access_logic {
     // @Parameter $appname appname
     // @Parameter $appdisc appdisc
 	// @Parameter $_Verbrose Verbrose
-	public function CreateApplication($appname,$appdisc,$_authkey,$_Verbrose){
+	public function CreateApplication($parm)
+	{
+		$appname = $parm["appname"];
+		$appdisc = $parm["appdisc"];
+		$_authkey = $parm["_authkey"];
+		$_Verbrose = $parm["_Verbrose"];
+		
             $auth_key = $_authkey;
 		$Output = new Output();
 	   	$str = file_get_contents('../data.json');
@@ -43,7 +49,13 @@ class access_logic {
     // @Parameter $app_key app_key
 	// @Parameter $appauthlevel appauthlevel
 	// @Parameter $_Verbrose Verbrose
-	public function CreateUser($userid_caller,$app_key,$appauthlevel,$_Verbrose){
+	public function CreateUser($parm)
+	{
+		$userid_caller = $parm["userid_caller"];
+		$app_key = $parm["app_key"];
+		$appauthlevel = $parm["appauthlevel"];
+		$_Verbrose = $parm["_Verbrose"];
+		
 		$Output = new Output();
 		$Application = new applications();
 		$App = $Application->Select("WHERE app_key='$app_key'");
@@ -77,7 +89,11 @@ class access_logic {
 	// LOGIN User
     // @Parameter $userid_caller userid_caller
     // @Parameter $appID appID
-	public function loginUser($userid_caller, $appID){
+	public function loginUser($parm)
+	{
+		$userid_caller = $parm["userid_caller"];
+		$appID = $parm["appID"];
+		
 		$Output = new Output();
 		$Users = new users();
 		$user = $Users->Select("WHERE userID_caller='$userid_caller' AND appID='$appID'");

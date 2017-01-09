@@ -7,8 +7,9 @@ class activity {
 
     // GET A SPECIFIC ACTIVITY OR ALL ACTIVITY
     // @Parameter $Condition 
-    public function Select($Condition)
+    public function Select($parm)
     {
+		$Condition = $parm["Condition"];
         global $db;
         
         if ($Condition == "") {
@@ -39,8 +40,10 @@ class activity {
     // INSERT ACTIVITY
     // @Parameter $accountid Activity Type
     // @Parameter $ActivityDescription Activity Description
-    public function Add($ActivityType,$ActivityDescription)
+    public function Add($parm)
     {
+		$ActivityType = $parm["ActivityType"];
+		$ActivityDescription = $parm["ActivityDescription"];
         global $db;
         
         if($ActivityType != "" && $ActivityDescription != ""){
@@ -63,7 +66,11 @@ class activity {
         // @Parameter $ActivityType  
         // @Parameter $ActivityDescription  
         // @Parameter $ActivityId   
-	public function Update($ActivityType,$ActivityDescription,$ActivityId){
+	public function Update($parm)
+	{
+		$ActivityType = $parm["ActivityType"];
+		$ActivityDescription = $parm["ActivityDescription"];
+		$ActivityId = $parm["ActivityId"];
             global $db;
             
             if($ActivityType != "" && $ActivityDescription != "" && $ActivityId != ""){
@@ -87,7 +94,9 @@ class activity {
 	}
 	//DELETE SPECIFIC RECORD
         //@Parameter $ActivityId
-	public function Delete_record($ActivityId){
+	public function Delete_record($parm)
+	{
+		$ActivityId = $parm["ActivityId"];
             global $db;
 		
             if($ActivityId != ""){
