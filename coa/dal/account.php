@@ -114,16 +114,18 @@ class account {
     // @Parameter $AccountDescription  
     // @Parameter $parent_id  
     // @Parameter $AccountTypeId  
-    public function Add($parm)
+    public function Add($AccountName,$AccountDescription,$parent_id,$AccountTypeId,$UserId)
     {
-		$AccountName = $parm["AccountName"];
-		$AccountDescription = $parm["AccountDescription"];
-		$parent_id = $parm["parent_id"];
-		$AccountTypeId = $parm["AccountTypeId"];
-		$UserId = $parm["UserId"];
+        //print_r($parm);
+		//$AccountName = $parm["AccountName"];
+		//$AccountDescription = $parm["AccountDescription"];
+		//$parent_id = $parm["parent_id"];
+		//$AccountTypeId = $parm["AccountTypeId"];
+		$UserId = $GLOBALS['userID'];
         global $db;
         $sql = "INSERT INTO ".$this->TableName." (Name, Description, Chart_id,Parent_id,User_id)";
         $sql .= 'VALUES("'.$AccountName.'","'.$AccountDescription.'",'.$AccountTypeId.','.$parent_id.','.$UserId.')'; 
+       echo $sql;
         try{
             $query = $db->prepare($sql);
             $query->execute();

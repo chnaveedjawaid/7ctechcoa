@@ -32,7 +32,7 @@ class accessPoint{
    var $accessLogic;
    public  function checkLogin($recivedParam){
         $auth = new authentication_logic();            
-        return $auth->isLogin($recivedParam['userID'], $recivedParam['appKey'], $recivedParam['verb']);     
+        return $auth->isLogin($recivedParam['userID'], $recivedParam['appKey'], $recivedParam['_Verbrose']);     
    }
     public function MainCall($cname, $fname, $action = NULL, $param = FALSE) {
         try{
@@ -40,7 +40,7 @@ class accessPoint{
             if(!$this->checkLogin($recivedParam)){
                // return "-1-Not Loged in";
             }
-             
+             $GLOBALS['userID']= $recivedParam['userID'];
         if($action == "checkLogin"){
             $auth = new authentication_logic();            
             $recivedParam = json_decode($param,TRUE);
