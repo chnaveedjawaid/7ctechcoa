@@ -1,4 +1,5 @@
-<?php require (dirname(__DIR__).'/config/db.php');;
+<?php 
+require (dirname(__DIR__).'/config/db.php');;
 
 class traceability {
 
